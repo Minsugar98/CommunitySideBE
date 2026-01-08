@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  password String
+  projects Project[] // 내가 만든 프로젝트들
+}
+
+model Project {
+  id         Int      @id @default(autoincrement())
+  title      String // AI가 추천해준 제목
+  summary    String // AI가 요약한 한 줄 소개
+  content    String // AI가 정리한 상세 기획 (Markdown)
+  techStacks String[] // 예: ["React", "NestJS"]
+
+  status    String // 모집중, 마감 등
+  createdAt DateTime @default(now())
+
+  authorId Int
+  author   User @relation(fields: [authorId], references: [id])
+}
