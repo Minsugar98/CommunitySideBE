@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma/prisma.service.js'
 import { CreatePostDto } from './dto/createPost.dto.js'
 import { GetPostsDto } from './dto/getPosts.dto.js'
 import { BaseException } from '../common/interceptors/BaseException.js';
+import { UpdatePostDto } from './dto/updatePost.dto.js'
 @Injectable()
 export class PostService {
   private readonly logger = new Logger(PostService.name)
@@ -85,5 +86,72 @@ export class PostService {
       throw new BaseException('해당 게시글이 없습니다.',HttpStatus.NOT_FOUND)
     }
     return data
+  }
+  async updatePost(
+    userId: number, 
+    projectId: number, 
+    postId: number, 
+    dto: UpdatePostDto
+  ) {
+    // 1. 게시글 존재 여부 및 작성자 확인
+    const post = await this.prisma.post.findUnique({
+      where: { id: postId },
+    });
+
+    if (!post) {
+      throw new BaseException('해당 게시글을 찾을 수 없습니다.', HttpStatus.NOT_FOUND);
+    }
+
+    // 2. 보안 검사: 게시글이 해당 프로젝트 소속인지 + 작성자가 본인인지
+    if (post.projectId !== projectId) {
+      throw new BaseException('잘못된 프로젝트 경로입니다.', HttpStatus.BAD_REQUEST);
+    }
+
+    if (post.userId !== userId) { // 스키마의 작성자 필드명(authorId) 확인
+      throw new BaseException('수정 권한이 없습니다. 본인만 수정 가능합니다.', HttpStatus.FORBIDDEN);
+    }
+
+    // 3. 수정 진행
+    await this.prisma.post.update({
+      where: { id: postId },
+      data: {
+        ...dto, // title, content 중 들어온 값만 업데이트
+      },
+    });
+
+    return {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "게시글 수정 작업 완료했습니다.",
+      timeStamp: new Date()
+    };
+  }
+
+  async deletePost(userId: number, projectId: number, postId: number) {
+    // 1. 게시글 존재 여부 확인
+    const post = await this.prisma.post.findUnique({
+      where: { id: postId },
+    });
+
+    if (!post) {
+      throw new BaseException('해당 게시글을 찾을 수 없습니다.', HttpStatus.NOT_FOUND);
+    }
+
+    // 2. 보안 검증: 해당 프로젝트의 게시글이 맞는지 확인
+    if (post.projectId !== projectId) {
+      throw new BaseException('잘못된 접근입니다.', HttpStatus.BAD_REQUEST);
+    }
+
+    // 3. 권한 검증: 작성자 본인인지 확인
+    if (post.userId !== userId) {
+      throw new BaseException('삭제 권한이 없습니다.', HttpStatus.FORBIDDEN);
+    }
+
+    // 4. 삭제 수행
+    await this.prisma.post.delete({
+      where: { id: postId },
+    });
+
+    return
   }
 }
