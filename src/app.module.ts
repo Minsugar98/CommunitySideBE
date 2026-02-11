@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module.js';
 import { ProjectController } from './project/project.controller.js';
 import { ProjectModule } from './project/project.module.js';
 import { PostModule } from './post/post.module.js';
+import { CommentModule } from './comment/comment.module.js';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { PostModule } from './post/post.module.js';
     AuthModule,
     ProjectModule,
     PostModule,
+    CommentModule,
   ],
   providers: [
     {

@@ -59,7 +59,13 @@ export class PostService {
               id: true,
               nickname: true,
             }
+          },
+          _count:{
+            select:{
+              comments:true
+            }
           }
+          
         }
       })
     ]);
@@ -79,7 +85,15 @@ export class PostService {
     const data = await this.prisma.post.findUnique({
       where:{
         id:postId
-      }
+      },
+      include:{
+        comments:true,
+        _count:{
+          select:{
+            comments:true
+          }
+        }
+      },
     })
 
     if(!data){
