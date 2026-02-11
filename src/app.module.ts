@@ -8,6 +8,7 @@ import { AllExceptionFilter } from './common/interceptors/AllExceptionFilter.js'
 import { AuthModule } from './auth/auth.module.js';
 import { ProjectController } from './project/project.controller.js';
 import { ProjectModule } from './project/project.module.js';
+import { PostModule } from './post/post.module.js';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ProjectModule } from './project/project.module.js';
     UserModule,
     AuthModule,
     ProjectModule,
+    PostModule,
   ],
   providers: [
     {

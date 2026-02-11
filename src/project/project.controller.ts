@@ -132,4 +132,19 @@ export class ProjectController {
       timeStamp: new Date(),
     };
   }
+
+  @Get(':projectId')
+  @HttpCode(HttpStatus.OK)
+  async getProjectFind(
+    @Param('projectId', ParseIntPipe) projectId: number,
+  ){
+    const data = await this.projectService.findProjects(projectId)
+    return {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: "프로젝트 조회 완료했습니다.",
+      data: data,
+      timeStamp: new Date(),
+    }
+  }
 }

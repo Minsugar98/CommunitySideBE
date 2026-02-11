@@ -227,6 +227,19 @@ export class ProjectService {
         },
       };
     }
+
+    async findProjects(projectId:number) {
+      const data = await this.prisma.project.findUnique({
+        where:{
+          id:projectId
+        }
+      })
+
+      if(!data){
+        throw new BaseException('존재하는 프로젝트가 없습니다.',HttpStatus.NOT_FOUND)
+      }
+      return data;
+    }
     async findMyActiveProjects(userId: number, query: GetProjectsDto) {
       const { page = 1, limit = 10 } = query;
       const skip = (page - 1) * limit;
