@@ -10,4 +10,11 @@
  */
 export type * from './models/User.js'
 export type * from './models/Project.js'
+export type * from './models/ProjectApplication.js'
+export type * from './models/UserLog.js'
+export type * from './models/ChatRoom.js'
+export type * from './models/Message.js'
+export type * from './models/Post.js'
+export type * from './models/Comment.js'
+export type * from './models/Task.js'
 export type * from './commonInputTypes.js'

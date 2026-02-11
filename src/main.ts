@@ -2,9 +2,18 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module.js';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: ['http://localhost:3000'],
+    methods: 'GET,PATCH,POST,DELETE',
+    allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization',
+    exposedHeaders: 'Custom-Header',
+    credentials: true,
+  });
+  app.use(cookieParser());
 
   // 1. 전역 유효성 검사 파이프 설정
   app.useGlobalPipes(
@@ -24,6 +33,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document); // http://localhost:3000/api 로 접속 가능
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();

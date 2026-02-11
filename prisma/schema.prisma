@@ -14,22 +14,132 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
-  password String
-  projects Project[] // 내가 만든 프로젝트들
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  nickname  String?
+  position  String?
+  career    Int?
+  bio       String?
+  urlLinks  String[] @default([])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projects            Project[] // 내가 만든 프로젝트들 (리더로서)
+  sentMessages        Message[] // 보낸 메시지들
+  authoredPosts       Post[] // 작성한 게시글들
+  authoredComments    Comment[] // 작성한 댓글들
+  assignedTasks       Task[] // 할당된 작업들
+  projectApplications ProjectApplication[]
+  userLogs            UserLog[]
 }
 
 model Project {
-  id         Int      @id @default(autoincrement())
-  title      String // AI가 추천해준 제목
-  summary    String // AI가 요약한 한 줄 소개
-  content    String // AI가 정리한 상세 기획 (Markdown)
-  techStacks String[] // 예: ["React", "NestJS"]
+  id                  Int                  @id @default(autoincrement())
+  title               String // 추천해준 제목
+  summary             String // 요약한 한 줄 소개
+  content             String // 정리한 상세 기획 (Markdown)
+  position            String[]
+  techStacks          String[] // 예: ["React", "NestJS"]
+  status              Boolean              @default(true) // 모집중
+  startDate           String
+  endDate             String
+  chatRoom            ChatRoom? // 각 프로젝트는 하나의 채팅방을 가질 수 있음 (1:1 관계)
+  posts               Post[] // 프로젝트 공지사항/게시글
+  tasks               Task[] // 프로젝트 작업 목록
+  createdAt           DateTime             @default(now())
+  leaderId            Int
+  leader              User                 @relation(fields: [leaderId], references: [id])
+  projectApplications ProjectApplication[]
+}
 
-  status    String // 모집중, 마감 등
+model ProjectApplication {
+  id Int @id @default(autoincrement())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  projectId Int
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  message String? // 지원 시 한마디 (선택)
+  Status  String  @default("PENDING") // 신청 상태 (PENDING, ACCEPTED, REJECTED)
+
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  authorId Int
-  author   User @relation(fields: [authorId], references: [id])
+  @@unique([userId, projectId]) // 한 사용자가 동일 프로젝트에 중복 지원 방지
+}
+
+model UserLog {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  action    String // SIGNUP, LOGIN
+  message   String // 상세 내용
+  clientIP  String // IP기록 개인정보 처리방침 명시
+  device    String // 기기 정보 개인정보 처리방침 명시
+  createdAt DateTime @default(now())
+}
+
+model ChatRoom {
+  id        Int       @id @default(autoincrement())
+  projectId Int       @unique // Project와 1:1 관계
+  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  messages  Message[]
+  createdAt DateTime  @default(now())
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  chatRoomId Int
+  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
+  senderId   Int
+  sender     User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  content    String
+  createdAt  DateTime @default(now())
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  projectId Int
+  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  content   String
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+model Task {
+  id           Int        @id @default(autoincrement())
+  projectId    Int
+  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title        String
+  description  String?
+  assignedToId Int? // 담당자는 선택 사항
+  assignedTo   User?      @relation(fields: [assignedToId], references: [id], onDelete: SetNull) // 담당자 삭제 시 null로 설정
+  dueDate      DateTime? // 마감일
+  status       TaskStatus @default(TODO)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
