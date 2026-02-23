@@ -12,7 +12,14 @@ export class ProjectService {
 
   async projectCreate(userId: number, projectCreateDto:ProjectCreateDto): Promise<void>{
     const Project = await this.prisma.project.create({
-      data : {...projectCreateDto,leaderId: userId}
+      data : {
+        ...projectCreateDto,
+        leaderId: userId,
+        chatRoom:{
+          create:{}
+        },
+        
+      }
     })
     if(!Project){
       throw new BaseException('프로젝트 생성 도중에 문제가 발생했습니다.',HttpStatus.BAD_REQUEST)

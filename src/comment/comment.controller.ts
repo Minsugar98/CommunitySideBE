@@ -1,10 +1,24 @@
-import { Controller,Post,Get,Patch,Query,Delete,UseGuards,HttpCode,Req,Param,Body,ParseIntPipe,HttpStatus} from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Patch,
+  Query,
+  Delete,
+  UseGuards,
+  HttpCode,
+  Req,
+  Param,
+  Body,
+  ParseIntPipe,
+  HttpStatus,
+} from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard.js';
-import { ProjectMemberGuard } from '../project/guards/project-member.guard.js'
-import {CommentService} from './comment.service.js'
-import { CreateCommentDto } from './dto/createComment.dto.js'
-import { GetCommentsDto } from './dto/getComment.dto.js'
-import { UpdateCommentDto } from './dto/updateComment.dto.js'
+import { ProjectMemberGuard } from '../project/guards/project-member.guard.js';
+import { CommentService } from './comment.service.js';
+import { CreateCommentDto } from './dto/createComment.dto.js';
+import { GetCommentsDto } from './dto/getComment.dto.js';
+import { UpdateCommentDto } from './dto/updateComment.dto.js';
 
 @Controller('project/:projectId/posts/:postId/comments')
 export class CommentController {
@@ -19,7 +33,7 @@ export class CommentController {
     @Param('postId', ParseIntPipe) postId: number,
     @Body() createCommentDto: CreateCommentDto,
   ) {
-    const userId = user.id
+    const userId = user.id;
     await this.commentService.createComment(
       userId,
       projectId,
@@ -28,10 +42,10 @@ export class CommentController {
     );
     return {
       success: true,
-      statusCode : HttpStatus.CREATED,
-      data : '댓글이 작성되었습니다.',
-      timeStamp: new Date()
-    }
+      statusCode: HttpStatus.CREATED,
+      data: '댓글이 작성되었습니다.',
+      timeStamp: new Date(),
+    };
   }
 
   @Get()
@@ -42,14 +56,18 @@ export class CommentController {
     @Param('postId', ParseIntPipe) postId: number,
     @Query() query: GetCommentsDto,
   ) {
-    const data = await this.commentService.findAllByPostComment(projectId, postId, query);
+    const data = await this.commentService.findAllByPostComment(
+      projectId,
+      postId,
+      query,
+    );
 
     return {
       success: true,
       statusCode: HttpStatus.OK,
-      message: "댓글 목록 조회를 완료했습니다.",
+      message: '댓글 목록 조회를 완료했습니다.',
       data: data,
-      timeStamp: new Date()
+      timeStamp: new Date(),
     };
   }
 
@@ -64,12 +82,18 @@ export class CommentController {
     @Body() updateCommentDto: UpdateCommentDto,
   ) {
     const userId = user.id;
-    await this.commentService.updateComment(userId, projectId,postId, commentId, updateCommentDto);
+    await this.commentService.updateComment(
+      userId,
+      projectId,
+      postId,
+      commentId,
+      updateCommentDto,
+    );
     return {
       success: true,
       statusCode: HttpStatus.OK,
-      message: "댓글 수정 작업 완료했습니다.",
-      timeStamp: new Date()
+      message: '댓글 수정 작업 완료했습니다.',
+      timeStamp: new Date(),
     };
   }
 
@@ -83,13 +107,18 @@ export class CommentController {
     @Param('commentId', ParseIntPipe) commentId: number,
   ) {
     const userId = user.id;
-     await this.commentService.deleteComment(userId, projectId, postId, commentId);
-     
-     return{
+    await this.commentService.deleteComment(
+      userId,
+      projectId,
+      postId,
+      commentId,
+    );
+
+    return {
       success: true,
       statusCode: HttpStatus.OK,
-      message: "댓글 삭제 작업 완료했습니다.",
-      timeStamp: new Date()
-    }
+      message: '댓글 삭제 작업 완료했습니다.',
+      timeStamp: new Date(),
+    };
   }
 }

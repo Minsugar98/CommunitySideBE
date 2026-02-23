@@ -94,8 +94,8 @@ model Message {
   id         Int      @id @default(autoincrement())
   chatRoomId Int
   chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
-  senderId   Int
-  sender     User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   content    String
   createdAt  DateTime @default(now())
 }
@@ -138,6 +138,7 @@ model Task {
   description  String?
   assignedToId Int? // 담당자는 선택 사항
   assignedTo   User?      @relation(fields: [assignedToId], references: [id], onDelete: SetNull) // 담당자 삭제 시 null로 설정
+  startDate    DateTime? // 시작일
   dueDate      DateTime? // 마감일
   status       TaskStatus @default(TODO)
   createdAt    DateTime   @default(now())

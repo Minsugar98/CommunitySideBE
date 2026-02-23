@@ -1,4 +1,9 @@
-import { CanActivate, ExecutionContext, Injectable, HttpStatus } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  HttpStatus,
+} from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { BaseException } from '../../common/interceptors/BaseException.js';
 
@@ -8,13 +13,16 @@ export class ProjectMemberGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    
+
     // 1. JwtAuthGuard가 채워준 유저 정보 추출
     const user = request.user;
     const projectId = parseInt(request.params.projectId);
 
     if (!user || isNaN(projectId)) {
-      throw new BaseException('유효하지 않은 접근입니다.', HttpStatus.BAD_REQUEST);
+      throw new BaseException(
+        '유효하지 않은 접근입니다.',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     // [검증 1] Project 테이블에서 리더인지 확인
@@ -24,7 +32,10 @@ export class ProjectMemberGuard implements CanActivate {
     });
 
     if (!project) {
-      throw new BaseException('존재하지 않는 프로젝트입니다.', HttpStatus.NOT_FOUND);
+      throw new BaseException(
+        '존재하지 않는 프로젝트입니다.',
+        HttpStatus.NOT_FOUND,
+      );
     }
 
     // 리더가 맞다면 바로 통과

@@ -1188,7 +1188,7 @@ export type ChatRoomScalarFieldEnum = (typeof ChatRoomScalarFieldEnum)[keyof typ
 export const MessageScalarFieldEnum = {
   id: 'id',
   chatRoomId: 'chatRoomId',
-  senderId: 'senderId',
+  userId: 'userId',
   content: 'content',
   createdAt: 'createdAt'
 } as const
@@ -1227,6 +1227,7 @@ export const TaskScalarFieldEnum = {
   title: 'title',
   description: 'description',
   assignedToId: 'assignedToId',
+  startDate: 'startDate',
   dueDate: 'dueDate',
   status: 'status',
   createdAt: 'createdAt',

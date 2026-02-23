@@ -353,7 +353,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectCreateNestedManyWithoutLeaderInput
-  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentCreateNestedManyWithoutUserInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
@@ -373,7 +373,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutLeaderInput
-  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
@@ -392,7 +392,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUpdateManyWithoutLeaderNestedInput
-  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUpdateManyWithoutUserNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
@@ -412,7 +412,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutLeaderNestedInput
-  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
@@ -670,7 +670,7 @@ export type UserCreateWithoutProjectsInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
-  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentCreateNestedManyWithoutUserInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
@@ -689,7 +689,7 @@ export type UserUncheckedCreateWithoutProjectsInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
-  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
@@ -723,7 +723,7 @@ export type UserUpdateWithoutProjectsInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUpdateManyWithoutUserNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
@@ -742,7 +742,7 @@ export type UserUncheckedUpdateWithoutProjectsInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
@@ -761,7 +761,7 @@ export type UserCreateWithoutProjectApplicationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectCreateNestedManyWithoutLeaderInput
-  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentCreateNestedManyWithoutUserInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
@@ -780,7 +780,7 @@ export type UserUncheckedCreateWithoutProjectApplicationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutLeaderInput
-  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
@@ -814,7 +814,7 @@ export type UserUpdateWithoutProjectApplicationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUpdateManyWithoutLeaderNestedInput
-  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUpdateManyWithoutUserNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
@@ -833,7 +833,7 @@ export type UserUncheckedUpdateWithoutProjectApplicationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutLeaderNestedInput
-  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
@@ -851,7 +851,7 @@ export type UserCreateWithoutUserLogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectCreateNestedManyWithoutLeaderInput
-  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentCreateNestedManyWithoutUserInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
@@ -870,7 +870,7 @@ export type UserUncheckedCreateWithoutUserLogsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutLeaderInput
-  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
@@ -904,7 +904,7 @@ export type UserUpdateWithoutUserLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUpdateManyWithoutLeaderNestedInput
-  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUpdateManyWithoutUserNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
@@ -923,7 +923,7 @@ export type UserUncheckedUpdateWithoutUserLogsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutLeaderNestedInput
-  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
@@ -1031,7 +1031,7 @@ export type UserCreateWithoutAuthoredPostsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectCreateNestedManyWithoutLeaderInput
-  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentCreateNestedManyWithoutUserInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   projectApplications?: Prisma.ProjectApplicationCreateNestedManyWithoutUserInput
@@ -1050,7 +1050,7 @@ export type UserUncheckedCreateWithoutAuthoredPostsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutLeaderInput
-  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   projectApplications?: Prisma.ProjectApplicationUncheckedCreateNestedManyWithoutUserInput
@@ -1084,7 +1084,7 @@ export type UserUpdateWithoutAuthoredPostsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUpdateManyWithoutLeaderNestedInput
-  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUpdateManyWithoutUserNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   projectApplications?: Prisma.ProjectApplicationUpdateManyWithoutUserNestedInput
@@ -1103,7 +1103,7 @@ export type UserUncheckedUpdateWithoutAuthoredPostsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutLeaderNestedInput
-  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   projectApplications?: Prisma.ProjectApplicationUncheckedUpdateManyWithoutUserNestedInput
@@ -1121,7 +1121,7 @@ export type UserCreateWithoutAuthoredCommentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectCreateNestedManyWithoutLeaderInput
-  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostCreateNestedManyWithoutUserInput
   assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   projectApplications?: Prisma.ProjectApplicationCreateNestedManyWithoutUserInput
@@ -1140,7 +1140,7 @@ export type UserUncheckedCreateWithoutAuthoredCommentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutLeaderInput
-  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
   assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   projectApplications?: Prisma.ProjectApplicationUncheckedCreateNestedManyWithoutUserInput
@@ -1174,7 +1174,7 @@ export type UserUpdateWithoutAuthoredCommentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUpdateManyWithoutLeaderNestedInput
-  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUpdateManyWithoutUserNestedInput
   assignedTasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   projectApplications?: Prisma.ProjectApplicationUpdateManyWithoutUserNestedInput
@@ -1193,7 +1193,7 @@ export type UserUncheckedUpdateWithoutAuthoredCommentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutLeaderNestedInput
-  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
   assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   projectApplications?: Prisma.ProjectApplicationUncheckedUpdateManyWithoutUserNestedInput
@@ -1211,7 +1211,7 @@ export type UserCreateWithoutAssignedTasksInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectCreateNestedManyWithoutLeaderInput
-  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentCreateNestedManyWithoutUserInput
   projectApplications?: Prisma.ProjectApplicationCreateNestedManyWithoutUserInput
@@ -1230,7 +1230,7 @@ export type UserUncheckedCreateWithoutAssignedTasksInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutLeaderInput
-  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
   projectApplications?: Prisma.ProjectApplicationUncheckedCreateNestedManyWithoutUserInput
@@ -1264,7 +1264,7 @@ export type UserUpdateWithoutAssignedTasksInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUpdateManyWithoutLeaderNestedInput
-  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUpdateManyWithoutUserNestedInput
   projectApplications?: Prisma.ProjectApplicationUpdateManyWithoutUserNestedInput
@@ -1283,7 +1283,7 @@ export type UserUncheckedUpdateWithoutAssignedTasksInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutLeaderNestedInput
-  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
   projectApplications?: Prisma.ProjectApplicationUncheckedUpdateManyWithoutUserNestedInput

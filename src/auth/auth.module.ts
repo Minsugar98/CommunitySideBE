@@ -6,6 +6,7 @@ import { AuthService } from './auth.service.js';
 import { AuthController } from './auth.controller.js';
 import { JwtStrategy } from './jwt.strategy.js';
 import { PrismaModule } from '../prisma/prisma.module.js';
+// src/auth/auth.module.ts
 
 @Module({
   imports: [
@@ -21,6 +22,6 @@ import { PrismaModule } from '../prisma/prisma.module.js';
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
-  exports: [AuthService],
+  exports: [AuthService, JwtModule], // 💡 JwtModule을 추가하여 외부에 공개합니다.
 })
 export class AuthModule {}

@@ -6,10 +6,11 @@ import { GeminiModule } from './ai/ai.module.js';
 import { UserModule } from './user/user.module.js';
 import { AllExceptionFilter } from './common/interceptors/AllExceptionFilter.js';
 import { AuthModule } from './auth/auth.module.js';
-import { ProjectController } from './project/project.controller.js';
 import { ProjectModule } from './project/project.module.js';
 import { PostModule } from './post/post.module.js';
 import { CommentModule } from './comment/comment.module.js';
+import { ChatModule } from './chat/chat.module.js';
+import { TaskModule } from './task/task.module.js';
 
 @Module({
   imports: [
@@ -25,6 +26,8 @@ import { CommentModule } from './comment/comment.module.js';
     ProjectModule,
     PostModule,
     CommentModule,
+    ChatModule,
+    TaskModule,
   ],
   providers: [
     {
