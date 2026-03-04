@@ -27,3 +27,38 @@ export type User = Prisma.UserModel
  * 
  */
 export type Project = Prisma.ProjectModel
+/**
+ * Model ProjectApplication
+ * 
+ */
+export type ProjectApplication = Prisma.ProjectApplicationModel
+/**
+ * Model UserLog
+ * 
+ */
+export type UserLog = Prisma.UserLogModel
+/**
+ * Model ChatRoom
+ * 
+ */
+export type ChatRoom = Prisma.ChatRoomModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
+/**
+ * Model Post
+ * 
+ */
+export type Post = Prisma.PostModel
+/**
+ * Model Comment
+ * 
+ */
+export type Comment = Prisma.CommentModel
+/**
+ * Model Task
+ * 
+ */
+export type Task = Prisma.TaskModel

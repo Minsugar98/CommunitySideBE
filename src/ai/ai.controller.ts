@@ -15,9 +15,6 @@ export class GeminiController {
     const res = await this.geminiService.chat(message, history);
 
     // 프론트엔드에 응답 (JSON)
-    return {
-      success: true,
-      reply: res,
-    };
+    return res;
   }
 }

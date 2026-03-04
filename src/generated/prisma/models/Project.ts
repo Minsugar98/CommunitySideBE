@@ -28,12 +28,14 @@ export type AggregateProject = {
 
 export type ProjectAvgAggregateOutputType = {
   id: number | null
-  authorId: number | null
+  recruitmentQuota: number | null
+  leaderId: number | null
 }
 
 export type ProjectSumAggregateOutputType = {
   id: number | null
-  authorId: number | null
+  recruitmentQuota: number | null
+  leaderId: number | null
 }
 
 export type ProjectMinAggregateOutputType = {
@@ -41,9 +43,13 @@ export type ProjectMinAggregateOutputType = {
   title: string | null
   summary: string | null
   content: string | null
-  status: string | null
+  meetingType: string | null
+  recruitmentQuota: number | null
+  status: boolean | null
+  startDate: string | null
+  endDate: string | null
   createdAt: Date | null
-  authorId: number | null
+  leaderId: number | null
 }
 
 export type ProjectMaxAggregateOutputType = {
@@ -51,9 +57,13 @@ export type ProjectMaxAggregateOutputType = {
   title: string | null
   summary: string | null
   content: string | null
-  status: string | null
+  meetingType: string | null
+  recruitmentQuota: number | null
+  status: boolean | null
+  startDate: string | null
+  endDate: string | null
   createdAt: Date | null
-  authorId: number | null
+  leaderId: number | null
 }
 
 export type ProjectCountAggregateOutputType = {
@@ -61,22 +71,29 @@ export type ProjectCountAggregateOutputType = {
   title: number
   summary: number
   content: number
+  meetingType: number
+  recruitmentQuota: number
+  position: number
   techStacks: number
   status: number
+  startDate: number
+  endDate: number
   createdAt: number
-  authorId: number
+  leaderId: number
   _all: number
 }
 
 
 export type ProjectAvgAggregateInputType = {
   id?: true
-  authorId?: true
+  recruitmentQuota?: true
+  leaderId?: true
 }
 
 export type ProjectSumAggregateInputType = {
   id?: true
-  authorId?: true
+  recruitmentQuota?: true
+  leaderId?: true
 }
 
 export type ProjectMinAggregateInputType = {
@@ -84,9 +101,13 @@ export type ProjectMinAggregateInputType = {
   title?: true
   summary?: true
   content?: true
+  meetingType?: true
+  recruitmentQuota?: true
   status?: true
+  startDate?: true
+  endDate?: true
   createdAt?: true
-  authorId?: true
+  leaderId?: true
 }
 
 export type ProjectMaxAggregateInputType = {
@@ -94,9 +115,13 @@ export type ProjectMaxAggregateInputType = {
   title?: true
   summary?: true
   content?: true
+  meetingType?: true
+  recruitmentQuota?: true
   status?: true
+  startDate?: true
+  endDate?: true
   createdAt?: true
-  authorId?: true
+  leaderId?: true
 }
 
 export type ProjectCountAggregateInputType = {
@@ -104,10 +129,15 @@ export type ProjectCountAggregateInputType = {
   title?: true
   summary?: true
   content?: true
+  meetingType?: true
+  recruitmentQuota?: true
+  position?: true
   techStacks?: true
   status?: true
+  startDate?: true
+  endDate?: true
   createdAt?: true
-  authorId?: true
+  leaderId?: true
   _all?: true
 }
 
@@ -202,10 +232,15 @@ export type ProjectGroupByOutputType = {
   title: string
   summary: string
   content: string
+  meetingType: string | null
+  recruitmentQuota: number
+  position: string[]
   techStacks: string[]
-  status: string
+  status: boolean
+  startDate: string
+  endDate: string
   createdAt: Date
-  authorId: number
+  leaderId: number
   _count: ProjectCountAggregateOutputType | null
   _avg: ProjectAvgAggregateOutputType | null
   _sum: ProjectSumAggregateOutputType | null
@@ -236,11 +271,20 @@ export type ProjectWhereInput = {
   title?: Prisma.StringFilter<"Project"> | string
   summary?: Prisma.StringFilter<"Project"> | string
   content?: Prisma.StringFilter<"Project"> | string
+  meetingType?: Prisma.StringNullableFilter<"Project"> | string | null
+  recruitmentQuota?: Prisma.IntFilter<"Project"> | number
+  position?: Prisma.StringNullableListFilter<"Project">
   techStacks?: Prisma.StringNullableListFilter<"Project">
-  status?: Prisma.StringFilter<"Project"> | string
+  status?: Prisma.BoolFilter<"Project"> | boolean
+  startDate?: Prisma.StringFilter<"Project"> | string
+  endDate?: Prisma.StringFilter<"Project"> | string
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
-  authorId?: Prisma.IntFilter<"Project"> | number
-  author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  leaderId?: Prisma.IntFilter<"Project"> | number
+  chatRoom?: Prisma.XOR<Prisma.ChatRoomNullableScalarRelationFilter, Prisma.ChatRoomWhereInput> | null
+  posts?: Prisma.PostListRelationFilter
+  tasks?: Prisma.TaskListRelationFilter
+  leader?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  projectApplications?: Prisma.ProjectApplicationListRelationFilter
 }
 
 export type ProjectOrderByWithRelationInput = {
@@ -248,11 +292,20 @@ export type ProjectOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  meetingType?: Prisma.SortOrderInput | Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
+  position?: Prisma.SortOrder
   techStacks?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
-  author?: Prisma.UserOrderByWithRelationInput
+  leaderId?: Prisma.SortOrder
+  chatRoom?: Prisma.ChatRoomOrderByWithRelationInput
+  posts?: Prisma.PostOrderByRelationAggregateInput
+  tasks?: Prisma.TaskOrderByRelationAggregateInput
+  leader?: Prisma.UserOrderByWithRelationInput
+  projectApplications?: Prisma.ProjectApplicationOrderByRelationAggregateInput
 }
 
 export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -263,11 +316,20 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Project"> | string
   summary?: Prisma.StringFilter<"Project"> | string
   content?: Prisma.StringFilter<"Project"> | string
+  meetingType?: Prisma.StringNullableFilter<"Project"> | string | null
+  recruitmentQuota?: Prisma.IntFilter<"Project"> | number
+  position?: Prisma.StringNullableListFilter<"Project">
   techStacks?: Prisma.StringNullableListFilter<"Project">
-  status?: Prisma.StringFilter<"Project"> | string
+  status?: Prisma.BoolFilter<"Project"> | boolean
+  startDate?: Prisma.StringFilter<"Project"> | string
+  endDate?: Prisma.StringFilter<"Project"> | string
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
-  authorId?: Prisma.IntFilter<"Project"> | number
-  author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  leaderId?: Prisma.IntFilter<"Project"> | number
+  chatRoom?: Prisma.XOR<Prisma.ChatRoomNullableScalarRelationFilter, Prisma.ChatRoomWhereInput> | null
+  posts?: Prisma.PostListRelationFilter
+  tasks?: Prisma.TaskListRelationFilter
+  leader?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  projectApplications?: Prisma.ProjectApplicationListRelationFilter
 }, "id">
 
 export type ProjectOrderByWithAggregationInput = {
@@ -275,10 +337,15 @@ export type ProjectOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  meetingType?: Prisma.SortOrderInput | Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
+  position?: Prisma.SortOrder
   techStacks?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  leaderId?: Prisma.SortOrder
   _count?: Prisma.ProjectCountOrderByAggregateInput
   _avg?: Prisma.ProjectAvgOrderByAggregateInput
   _max?: Prisma.ProjectMaxOrderByAggregateInput
@@ -294,20 +361,34 @@ export type ProjectScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Project"> | string
   summary?: Prisma.StringWithAggregatesFilter<"Project"> | string
   content?: Prisma.StringWithAggregatesFilter<"Project"> | string
+  meetingType?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
+  recruitmentQuota?: Prisma.IntWithAggregatesFilter<"Project"> | number
+  position?: Prisma.StringNullableListFilter<"Project">
   techStacks?: Prisma.StringNullableListFilter<"Project">
-  status?: Prisma.StringWithAggregatesFilter<"Project"> | string
+  status?: Prisma.BoolWithAggregatesFilter<"Project"> | boolean
+  startDate?: Prisma.StringWithAggregatesFilter<"Project"> | string
+  endDate?: Prisma.StringWithAggregatesFilter<"Project"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
-  authorId?: Prisma.IntWithAggregatesFilter<"Project"> | number
+  leaderId?: Prisma.IntWithAggregatesFilter<"Project"> | number
 }
 
 export type ProjectCreateInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
-  status: string
+  status?: boolean
+  startDate: string
+  endDate: string
   createdAt?: Date | string
-  author: Prisma.UserCreateNestedOneWithoutProjectsInput
+  chatRoom?: Prisma.ChatRoomCreateNestedOneWithoutProjectInput
+  posts?: Prisma.PostCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  leader: Prisma.UserCreateNestedOneWithoutProjectsInput
+  projectApplications?: Prisma.ProjectApplicationCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateInput = {
@@ -315,20 +396,38 @@ export type ProjectUncheckedCreateInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
-  status: string
+  status?: boolean
+  startDate: string
+  endDate: string
   createdAt?: Date | string
-  authorId: number
+  leaderId: number
+  chatRoom?: Prisma.ChatRoomUncheckedCreateNestedOneWithoutProjectInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  projectApplications?: Prisma.ProjectApplicationUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  author?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  chatRoom?: Prisma.ChatRoomUpdateOneWithoutProjectNestedInput
+  posts?: Prisma.PostUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  leader?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  projectApplications?: Prisma.ProjectApplicationUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateInput = {
@@ -336,10 +435,19 @@ export type ProjectUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  authorId?: Prisma.IntFieldUpdateOperationsInput | number
+  leaderId?: Prisma.IntFieldUpdateOperationsInput | number
+  chatRoom?: Prisma.ChatRoomUncheckedUpdateOneWithoutProjectNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  projectApplications?: Prisma.ProjectApplicationUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyInput = {
@@ -347,18 +455,28 @@ export type ProjectCreateManyInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
-  status: string
+  status?: boolean
+  startDate: string
+  endDate: string
   createdAt?: Date | string
-  authorId: number
+  leaderId: number
 }
 
 export type ProjectUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -367,10 +485,15 @@ export type ProjectUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  authorId?: Prisma.IntFieldUpdateOperationsInput | number
+  leaderId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ProjectListRelationFilter = {
@@ -383,28 +506,26 @@ export type ProjectOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type StringNullableListFilter<$PrismaModel = never> = {
-  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
-  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
-  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  isEmpty?: boolean
-}
-
 export type ProjectCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  meetingType?: Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
+  position?: Prisma.SortOrder
   techStacks?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  leaderId?: Prisma.SortOrder
 }
 
 export type ProjectAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
+  leaderId?: Prisma.SortOrder
 }
 
 export type ProjectMaxOrderByAggregateInput = {
@@ -412,9 +533,13 @@ export type ProjectMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  meetingType?: Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  leaderId?: Prisma.SortOrder
 }
 
 export type ProjectMinOrderByAggregateInput = {
@@ -422,60 +547,79 @@ export type ProjectMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  meetingType?: Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  leaderId?: Prisma.SortOrder
 }
 
 export type ProjectSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  authorId?: Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
+  leaderId?: Prisma.SortOrder
 }
 
-export type ProjectCreateNestedManyWithoutAuthorInput = {
-  create?: Prisma.XOR<Prisma.ProjectCreateWithoutAuthorInput, Prisma.ProjectUncheckedCreateWithoutAuthorInput> | Prisma.ProjectCreateWithoutAuthorInput[] | Prisma.ProjectUncheckedCreateWithoutAuthorInput[]
-  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutAuthorInput | Prisma.ProjectCreateOrConnectWithoutAuthorInput[]
-  createMany?: Prisma.ProjectCreateManyAuthorInputEnvelope
+export type ProjectScalarRelationFilter = {
+  is?: Prisma.ProjectWhereInput
+  isNot?: Prisma.ProjectWhereInput
+}
+
+export type ProjectCreateNestedManyWithoutLeaderInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutLeaderInput, Prisma.ProjectUncheckedCreateWithoutLeaderInput> | Prisma.ProjectCreateWithoutLeaderInput[] | Prisma.ProjectUncheckedCreateWithoutLeaderInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutLeaderInput | Prisma.ProjectCreateOrConnectWithoutLeaderInput[]
+  createMany?: Prisma.ProjectCreateManyLeaderInputEnvelope
   connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
 }
 
-export type ProjectUncheckedCreateNestedManyWithoutAuthorInput = {
-  create?: Prisma.XOR<Prisma.ProjectCreateWithoutAuthorInput, Prisma.ProjectUncheckedCreateWithoutAuthorInput> | Prisma.ProjectCreateWithoutAuthorInput[] | Prisma.ProjectUncheckedCreateWithoutAuthorInput[]
-  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutAuthorInput | Prisma.ProjectCreateOrConnectWithoutAuthorInput[]
-  createMany?: Prisma.ProjectCreateManyAuthorInputEnvelope
+export type ProjectUncheckedCreateNestedManyWithoutLeaderInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutLeaderInput, Prisma.ProjectUncheckedCreateWithoutLeaderInput> | Prisma.ProjectCreateWithoutLeaderInput[] | Prisma.ProjectUncheckedCreateWithoutLeaderInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutLeaderInput | Prisma.ProjectCreateOrConnectWithoutLeaderInput[]
+  createMany?: Prisma.ProjectCreateManyLeaderInputEnvelope
   connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
 }
 
-export type ProjectUpdateManyWithoutAuthorNestedInput = {
-  create?: Prisma.XOR<Prisma.ProjectCreateWithoutAuthorInput, Prisma.ProjectUncheckedCreateWithoutAuthorInput> | Prisma.ProjectCreateWithoutAuthorInput[] | Prisma.ProjectUncheckedCreateWithoutAuthorInput[]
-  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutAuthorInput | Prisma.ProjectCreateOrConnectWithoutAuthorInput[]
-  upsert?: Prisma.ProjectUpsertWithWhereUniqueWithoutAuthorInput | Prisma.ProjectUpsertWithWhereUniqueWithoutAuthorInput[]
-  createMany?: Prisma.ProjectCreateManyAuthorInputEnvelope
+export type ProjectUpdateManyWithoutLeaderNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutLeaderInput, Prisma.ProjectUncheckedCreateWithoutLeaderInput> | Prisma.ProjectCreateWithoutLeaderInput[] | Prisma.ProjectUncheckedCreateWithoutLeaderInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutLeaderInput | Prisma.ProjectCreateOrConnectWithoutLeaderInput[]
+  upsert?: Prisma.ProjectUpsertWithWhereUniqueWithoutLeaderInput | Prisma.ProjectUpsertWithWhereUniqueWithoutLeaderInput[]
+  createMany?: Prisma.ProjectCreateManyLeaderInputEnvelope
   set?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
   disconnect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
   delete?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
   connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
-  update?: Prisma.ProjectUpdateWithWhereUniqueWithoutAuthorInput | Prisma.ProjectUpdateWithWhereUniqueWithoutAuthorInput[]
-  updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutAuthorInput | Prisma.ProjectUpdateManyWithWhereWithoutAuthorInput[]
+  update?: Prisma.ProjectUpdateWithWhereUniqueWithoutLeaderInput | Prisma.ProjectUpdateWithWhereUniqueWithoutLeaderInput[]
+  updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutLeaderInput | Prisma.ProjectUpdateManyWithWhereWithoutLeaderInput[]
   deleteMany?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
 }
 
-export type ProjectUncheckedUpdateManyWithoutAuthorNestedInput = {
-  create?: Prisma.XOR<Prisma.ProjectCreateWithoutAuthorInput, Prisma.ProjectUncheckedCreateWithoutAuthorInput> | Prisma.ProjectCreateWithoutAuthorInput[] | Prisma.ProjectUncheckedCreateWithoutAuthorInput[]
-  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutAuthorInput | Prisma.ProjectCreateOrConnectWithoutAuthorInput[]
-  upsert?: Prisma.ProjectUpsertWithWhereUniqueWithoutAuthorInput | Prisma.ProjectUpsertWithWhereUniqueWithoutAuthorInput[]
-  createMany?: Prisma.ProjectCreateManyAuthorInputEnvelope
+export type ProjectUncheckedUpdateManyWithoutLeaderNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutLeaderInput, Prisma.ProjectUncheckedCreateWithoutLeaderInput> | Prisma.ProjectCreateWithoutLeaderInput[] | Prisma.ProjectUncheckedCreateWithoutLeaderInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutLeaderInput | Prisma.ProjectCreateOrConnectWithoutLeaderInput[]
+  upsert?: Prisma.ProjectUpsertWithWhereUniqueWithoutLeaderInput | Prisma.ProjectUpsertWithWhereUniqueWithoutLeaderInput[]
+  createMany?: Prisma.ProjectCreateManyLeaderInputEnvelope
   set?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
   disconnect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
   delete?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
   connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
-  update?: Prisma.ProjectUpdateWithWhereUniqueWithoutAuthorInput | Prisma.ProjectUpdateWithWhereUniqueWithoutAuthorInput[]
-  updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutAuthorInput | Prisma.ProjectUpdateManyWithWhereWithoutAuthorInput[]
+  update?: Prisma.ProjectUpdateWithWhereUniqueWithoutLeaderInput | Prisma.ProjectUpdateWithWhereUniqueWithoutLeaderInput[]
+  updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutLeaderInput | Prisma.ProjectUpdateManyWithWhereWithoutLeaderInput[]
   deleteMany?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
+}
+
+export type ProjectCreatepositionInput = {
+  set: string[]
 }
 
 export type ProjectCreatetechStacksInput = {
   set: string[]
+}
+
+export type ProjectUpdatepositionInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type ProjectUpdatetechStacksInput = {
@@ -483,53 +627,127 @@ export type ProjectUpdatetechStacksInput = {
   push?: string | string[]
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
-export type ProjectCreateWithoutAuthorInput = {
+export type ProjectCreateNestedOneWithoutProjectApplicationsInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutProjectApplicationsInput, Prisma.ProjectUncheckedCreateWithoutProjectApplicationsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutProjectApplicationsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutProjectApplicationsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutProjectApplicationsInput, Prisma.ProjectUncheckedCreateWithoutProjectApplicationsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutProjectApplicationsInput
+  upsert?: Prisma.ProjectUpsertWithoutProjectApplicationsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutProjectApplicationsInput, Prisma.ProjectUpdateWithoutProjectApplicationsInput>, Prisma.ProjectUncheckedUpdateWithoutProjectApplicationsInput>
+}
+
+export type ProjectCreateNestedOneWithoutChatRoomInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutChatRoomInput, Prisma.ProjectUncheckedCreateWithoutChatRoomInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutChatRoomInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutChatRoomNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutChatRoomInput, Prisma.ProjectUncheckedCreateWithoutChatRoomInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutChatRoomInput
+  upsert?: Prisma.ProjectUpsertWithoutChatRoomInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutChatRoomInput, Prisma.ProjectUpdateWithoutChatRoomInput>, Prisma.ProjectUncheckedUpdateWithoutChatRoomInput>
+}
+
+export type ProjectCreateNestedOneWithoutPostsInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutPostsInput, Prisma.ProjectUncheckedCreateWithoutPostsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutPostsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutPostsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutPostsInput, Prisma.ProjectUncheckedCreateWithoutPostsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutPostsInput
+  upsert?: Prisma.ProjectUpsertWithoutPostsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutPostsInput, Prisma.ProjectUpdateWithoutPostsInput>, Prisma.ProjectUncheckedUpdateWithoutPostsInput>
+}
+
+export type ProjectCreateNestedOneWithoutTasksInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutTasksInput, Prisma.ProjectUncheckedCreateWithoutTasksInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutTasksInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutTasksNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutTasksInput, Prisma.ProjectUncheckedCreateWithoutTasksInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutTasksInput
+  upsert?: Prisma.ProjectUpsertWithoutTasksInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutTasksInput, Prisma.ProjectUpdateWithoutTasksInput>, Prisma.ProjectUncheckedUpdateWithoutTasksInput>
+}
+
+export type ProjectCreateWithoutLeaderInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
-  status: string
+  status?: boolean
+  startDate: string
+  endDate: string
   createdAt?: Date | string
+  chatRoom?: Prisma.ChatRoomCreateNestedOneWithoutProjectInput
+  posts?: Prisma.PostCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  projectApplications?: Prisma.ProjectApplicationCreateNestedManyWithoutProjectInput
 }
 
-export type ProjectUncheckedCreateWithoutAuthorInput = {
+export type ProjectUncheckedCreateWithoutLeaderInput = {
   id?: number
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
-  status: string
+  status?: boolean
+  startDate: string
+  endDate: string
   createdAt?: Date | string
+  chatRoom?: Prisma.ChatRoomUncheckedCreateNestedOneWithoutProjectInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  projectApplications?: Prisma.ProjectApplicationUncheckedCreateNestedManyWithoutProjectInput
 }
 
-export type ProjectCreateOrConnectWithoutAuthorInput = {
+export type ProjectCreateOrConnectWithoutLeaderInput = {
   where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutAuthorInput, Prisma.ProjectUncheckedCreateWithoutAuthorInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutLeaderInput, Prisma.ProjectUncheckedCreateWithoutLeaderInput>
 }
 
-export type ProjectCreateManyAuthorInputEnvelope = {
-  data: Prisma.ProjectCreateManyAuthorInput | Prisma.ProjectCreateManyAuthorInput[]
+export type ProjectCreateManyLeaderInputEnvelope = {
+  data: Prisma.ProjectCreateManyLeaderInput | Prisma.ProjectCreateManyLeaderInput[]
   skipDuplicates?: boolean
 }
 
-export type ProjectUpsertWithWhereUniqueWithoutAuthorInput = {
+export type ProjectUpsertWithWhereUniqueWithoutLeaderInput = {
   where: Prisma.ProjectWhereUniqueInput
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutAuthorInput, Prisma.ProjectUncheckedUpdateWithoutAuthorInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutAuthorInput, Prisma.ProjectUncheckedCreateWithoutAuthorInput>
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutLeaderInput, Prisma.ProjectUncheckedUpdateWithoutLeaderInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutLeaderInput, Prisma.ProjectUncheckedCreateWithoutLeaderInput>
 }
 
-export type ProjectUpdateWithWhereUniqueWithoutAuthorInput = {
+export type ProjectUpdateWithWhereUniqueWithoutLeaderInput = {
   where: Prisma.ProjectWhereUniqueInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutAuthorInput, Prisma.ProjectUncheckedUpdateWithoutAuthorInput>
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutLeaderInput, Prisma.ProjectUncheckedUpdateWithoutLeaderInput>
 }
 
-export type ProjectUpdateManyWithWhereWithoutAuthorInput = {
+export type ProjectUpdateManyWithWhereWithoutLeaderInput = {
   where: Prisma.ProjectScalarWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateManyMutationInput, Prisma.ProjectUncheckedUpdateManyWithoutAuthorInput>
+  data: Prisma.XOR<Prisma.ProjectUpdateManyMutationInput, Prisma.ProjectUncheckedUpdateManyWithoutLeaderInput>
 }
 
 export type ProjectScalarWhereInput = {
@@ -540,51 +758,491 @@ export type ProjectScalarWhereInput = {
   title?: Prisma.StringFilter<"Project"> | string
   summary?: Prisma.StringFilter<"Project"> | string
   content?: Prisma.StringFilter<"Project"> | string
+  meetingType?: Prisma.StringNullableFilter<"Project"> | string | null
+  recruitmentQuota?: Prisma.IntFilter<"Project"> | number
+  position?: Prisma.StringNullableListFilter<"Project">
   techStacks?: Prisma.StringNullableListFilter<"Project">
-  status?: Prisma.StringFilter<"Project"> | string
+  status?: Prisma.BoolFilter<"Project"> | boolean
+  startDate?: Prisma.StringFilter<"Project"> | string
+  endDate?: Prisma.StringFilter<"Project"> | string
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
-  authorId?: Prisma.IntFilter<"Project"> | number
+  leaderId?: Prisma.IntFilter<"Project"> | number
 }
 
-export type ProjectCreateManyAuthorInput = {
+export type ProjectCreateWithoutProjectApplicationsInput = {
+  title: string
+  summary: string
+  content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
+  techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
+  status?: boolean
+  startDate: string
+  endDate: string
+  createdAt?: Date | string
+  chatRoom?: Prisma.ChatRoomCreateNestedOneWithoutProjectInput
+  posts?: Prisma.PostCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  leader: Prisma.UserCreateNestedOneWithoutProjectsInput
+}
+
+export type ProjectUncheckedCreateWithoutProjectApplicationsInput = {
   id?: number
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
-  status: string
+  status?: boolean
+  startDate: string
+  endDate: string
+  createdAt?: Date | string
+  leaderId: number
+  chatRoom?: Prisma.ChatRoomUncheckedCreateNestedOneWithoutProjectInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutProjectApplicationsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutProjectApplicationsInput, Prisma.ProjectUncheckedCreateWithoutProjectApplicationsInput>
+}
+
+export type ProjectUpsertWithoutProjectApplicationsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutProjectApplicationsInput, Prisma.ProjectUncheckedUpdateWithoutProjectApplicationsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutProjectApplicationsInput, Prisma.ProjectUncheckedCreateWithoutProjectApplicationsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutProjectApplicationsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutProjectApplicationsInput, Prisma.ProjectUncheckedUpdateWithoutProjectApplicationsInput>
+}
+
+export type ProjectUpdateWithoutProjectApplicationsInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
+  techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chatRoom?: Prisma.ChatRoomUpdateOneWithoutProjectNestedInput
+  posts?: Prisma.PostUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  leader?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutProjectApplicationsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
+  techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leaderId?: Prisma.IntFieldUpdateOperationsInput | number
+  chatRoom?: Prisma.ChatRoomUncheckedUpdateOneWithoutProjectNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutChatRoomInput = {
+  title: string
+  summary: string
+  content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
+  techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
+  status?: boolean
+  startDate: string
+  endDate: string
+  createdAt?: Date | string
+  posts?: Prisma.PostCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  leader: Prisma.UserCreateNestedOneWithoutProjectsInput
+  projectApplications?: Prisma.ProjectApplicationCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutChatRoomInput = {
+  id?: number
+  title: string
+  summary: string
+  content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
+  techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
+  status?: boolean
+  startDate: string
+  endDate: string
+  createdAt?: Date | string
+  leaderId: number
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  projectApplications?: Prisma.ProjectApplicationUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutChatRoomInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutChatRoomInput, Prisma.ProjectUncheckedCreateWithoutChatRoomInput>
+}
+
+export type ProjectUpsertWithoutChatRoomInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutChatRoomInput, Prisma.ProjectUncheckedUpdateWithoutChatRoomInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutChatRoomInput, Prisma.ProjectUncheckedCreateWithoutChatRoomInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutChatRoomInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutChatRoomInput, Prisma.ProjectUncheckedUpdateWithoutChatRoomInput>
+}
+
+export type ProjectUpdateWithoutChatRoomInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
+  techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  posts?: Prisma.PostUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  leader?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  projectApplications?: Prisma.ProjectApplicationUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutChatRoomInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
+  techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leaderId?: Prisma.IntFieldUpdateOperationsInput | number
+  posts?: Prisma.PostUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  projectApplications?: Prisma.ProjectApplicationUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutPostsInput = {
+  title: string
+  summary: string
+  content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
+  techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
+  status?: boolean
+  startDate: string
+  endDate: string
+  createdAt?: Date | string
+  chatRoom?: Prisma.ChatRoomCreateNestedOneWithoutProjectInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  leader: Prisma.UserCreateNestedOneWithoutProjectsInput
+  projectApplications?: Prisma.ProjectApplicationCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutPostsInput = {
+  id?: number
+  title: string
+  summary: string
+  content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
+  techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
+  status?: boolean
+  startDate: string
+  endDate: string
+  createdAt?: Date | string
+  leaderId: number
+  chatRoom?: Prisma.ChatRoomUncheckedCreateNestedOneWithoutProjectInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  projectApplications?: Prisma.ProjectApplicationUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutPostsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutPostsInput, Prisma.ProjectUncheckedCreateWithoutPostsInput>
+}
+
+export type ProjectUpsertWithoutPostsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutPostsInput, Prisma.ProjectUncheckedUpdateWithoutPostsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutPostsInput, Prisma.ProjectUncheckedCreateWithoutPostsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutPostsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutPostsInput, Prisma.ProjectUncheckedUpdateWithoutPostsInput>
+}
+
+export type ProjectUpdateWithoutPostsInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
+  techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chatRoom?: Prisma.ChatRoomUpdateOneWithoutProjectNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  leader?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  projectApplications?: Prisma.ProjectApplicationUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutPostsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
+  techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leaderId?: Prisma.IntFieldUpdateOperationsInput | number
+  chatRoom?: Prisma.ChatRoomUncheckedUpdateOneWithoutProjectNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  projectApplications?: Prisma.ProjectApplicationUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutTasksInput = {
+  title: string
+  summary: string
+  content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
+  techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
+  status?: boolean
+  startDate: string
+  endDate: string
+  createdAt?: Date | string
+  chatRoom?: Prisma.ChatRoomCreateNestedOneWithoutProjectInput
+  posts?: Prisma.PostCreateNestedManyWithoutProjectInput
+  leader: Prisma.UserCreateNestedOneWithoutProjectsInput
+  projectApplications?: Prisma.ProjectApplicationCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutTasksInput = {
+  id?: number
+  title: string
+  summary: string
+  content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
+  techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
+  status?: boolean
+  startDate: string
+  endDate: string
+  createdAt?: Date | string
+  leaderId: number
+  chatRoom?: Prisma.ChatRoomUncheckedCreateNestedOneWithoutProjectInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutProjectInput
+  projectApplications?: Prisma.ProjectApplicationUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutTasksInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutTasksInput, Prisma.ProjectUncheckedCreateWithoutTasksInput>
+}
+
+export type ProjectUpsertWithoutTasksInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutTasksInput, Prisma.ProjectUncheckedUpdateWithoutTasksInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutTasksInput, Prisma.ProjectUncheckedCreateWithoutTasksInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutTasksInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutTasksInput, Prisma.ProjectUncheckedUpdateWithoutTasksInput>
+}
+
+export type ProjectUpdateWithoutTasksInput = {
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
+  techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chatRoom?: Prisma.ChatRoomUpdateOneWithoutProjectNestedInput
+  posts?: Prisma.PostUpdateManyWithoutProjectNestedInput
+  leader?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  projectApplications?: Prisma.ProjectApplicationUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutTasksInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
+  techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leaderId?: Prisma.IntFieldUpdateOperationsInput | number
+  chatRoom?: Prisma.ChatRoomUncheckedUpdateOneWithoutProjectNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutProjectNestedInput
+  projectApplications?: Prisma.ProjectApplicationUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateManyLeaderInput = {
+  id?: number
+  title: string
+  summary: string
+  content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
+  position?: Prisma.ProjectCreatepositionInput | string[]
+  techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
+  status?: boolean
+  startDate: string
+  endDate: string
   createdAt?: Date | string
 }
 
-export type ProjectUpdateWithoutAuthorInput = {
+export type ProjectUpdateWithoutLeaderInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chatRoom?: Prisma.ChatRoomUpdateOneWithoutProjectNestedInput
+  posts?: Prisma.PostUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  projectApplications?: Prisma.ProjectApplicationUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectUncheckedUpdateWithoutAuthorInput = {
+export type ProjectUncheckedUpdateWithoutLeaderInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  chatRoom?: Prisma.ChatRoomUncheckedUpdateOneWithoutProjectNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  projectApplications?: Prisma.ProjectApplicationUncheckedUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectUncheckedUpdateManyWithoutAuthorInput = {
+export type ProjectUncheckedUpdateManyWithoutLeaderInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
-  status?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  startDate?: Prisma.StringFieldUpdateOperationsInput | string
+  endDate?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type ProjectCountOutputType
+ */
+
+export type ProjectCountOutputType = {
+  posts: number
+  tasks: number
+  projectApplications: number
+}
+
+export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  posts?: boolean | ProjectCountOutputTypeCountPostsArgs
+  tasks?: boolean | ProjectCountOutputTypeCountTasksArgs
+  projectApplications?: boolean | ProjectCountOutputTypeCountProjectApplicationsArgs
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectCountOutputType
+   */
+  select?: Prisma.ProjectCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountPostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PostWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TaskWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountProjectApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectApplicationWhereInput
+}
 
 
 export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -592,11 +1250,21 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   title?: boolean
   summary?: boolean
   content?: boolean
+  meetingType?: boolean
+  recruitmentQuota?: boolean
+  position?: boolean
   techStacks?: boolean
   status?: boolean
+  startDate?: boolean
+  endDate?: boolean
   createdAt?: boolean
-  authorId?: boolean
-  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  leaderId?: boolean
+  chatRoom?: boolean | Prisma.Project$chatRoomArgs<ExtArgs>
+  posts?: boolean | Prisma.Project$postsArgs<ExtArgs>
+  tasks?: boolean | Prisma.Project$tasksArgs<ExtArgs>
+  leader?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  projectApplications?: boolean | Prisma.Project$projectApplicationsArgs<ExtArgs>
+  _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
 export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -604,11 +1272,16 @@ export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   title?: boolean
   summary?: boolean
   content?: boolean
+  meetingType?: boolean
+  recruitmentQuota?: boolean
+  position?: boolean
   techStacks?: boolean
   status?: boolean
+  startDate?: boolean
+  endDate?: boolean
   createdAt?: boolean
-  authorId?: boolean
-  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  leaderId?: boolean
+  leader?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
 export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -616,11 +1289,16 @@ export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   title?: boolean
   summary?: boolean
   content?: boolean
+  meetingType?: boolean
+  recruitmentQuota?: boolean
+  position?: boolean
   techStacks?: boolean
   status?: boolean
+  startDate?: boolean
+  endDate?: boolean
   createdAt?: boolean
-  authorId?: boolean
-  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  leaderId?: boolean
+  leader?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
 export type ProjectSelectScalar = {
@@ -628,37 +1306,56 @@ export type ProjectSelectScalar = {
   title?: boolean
   summary?: boolean
   content?: boolean
+  meetingType?: boolean
+  recruitmentQuota?: boolean
+  position?: boolean
   techStacks?: boolean
   status?: boolean
+  startDate?: boolean
+  endDate?: boolean
   createdAt?: boolean
-  authorId?: boolean
+  leaderId?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "summary" | "content" | "techStacks" | "status" | "createdAt" | "authorId", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "summary" | "content" | "meetingType" | "recruitmentQuota" | "position" | "techStacks" | "status" | "startDate" | "endDate" | "createdAt" | "leaderId", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  chatRoom?: boolean | Prisma.Project$chatRoomArgs<ExtArgs>
+  posts?: boolean | Prisma.Project$postsArgs<ExtArgs>
+  tasks?: boolean | Prisma.Project$tasksArgs<ExtArgs>
+  leader?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  projectApplications?: boolean | Prisma.Project$projectApplicationsArgs<ExtArgs>
+  _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProjectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  leader?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ProjectIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  leader?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Project"
   objects: {
-    author: Prisma.$UserPayload<ExtArgs>
+    chatRoom: Prisma.$ChatRoomPayload<ExtArgs> | null
+    posts: Prisma.$PostPayload<ExtArgs>[]
+    tasks: Prisma.$TaskPayload<ExtArgs>[]
+    leader: Prisma.$UserPayload<ExtArgs>
+    projectApplications: Prisma.$ProjectApplicationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     title: string
     summary: string
     content: string
+    meetingType: string | null
+    recruitmentQuota: number
+    position: string[]
     techStacks: string[]
-    status: string
+    status: boolean
+    startDate: string
+    endDate: string
     createdAt: Date
-    authorId: number
+    leaderId: number
   }, ExtArgs["result"]["project"]>
   composites: {}
 }
@@ -1053,7 +1750,11 @@ readonly fields: ProjectFieldRefs;
  */
 export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  chatRoom<T extends Prisma.Project$chatRoomArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$chatRoomArgs<ExtArgs>>): Prisma.Prisma__ChatRoomClient<runtime.Types.Result.GetResult<Prisma.$ChatRoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  posts<T extends Prisma.Project$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tasks<T extends Prisma.Project$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  leader<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  projectApplications<T extends Prisma.Project$projectApplicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$projectApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1087,10 +1788,15 @@ export interface ProjectFieldRefs {
   readonly title: Prisma.FieldRef<"Project", 'String'>
   readonly summary: Prisma.FieldRef<"Project", 'String'>
   readonly content: Prisma.FieldRef<"Project", 'String'>
+  readonly meetingType: Prisma.FieldRef<"Project", 'String'>
+  readonly recruitmentQuota: Prisma.FieldRef<"Project", 'Int'>
+  readonly position: Prisma.FieldRef<"Project", 'String[]'>
   readonly techStacks: Prisma.FieldRef<"Project", 'String[]'>
-  readonly status: Prisma.FieldRef<"Project", 'String'>
+  readonly status: Prisma.FieldRef<"Project", 'Boolean'>
+  readonly startDate: Prisma.FieldRef<"Project", 'String'>
+  readonly endDate: Prisma.FieldRef<"Project", 'String'>
   readonly createdAt: Prisma.FieldRef<"Project", 'DateTime'>
-  readonly authorId: Prisma.FieldRef<"Project", 'Int'>
+  readonly leaderId: Prisma.FieldRef<"Project", 'Int'>
 }
     
 
@@ -1484,6 +2190,97 @@ export type ProjectDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Projects to delete.
    */
   limit?: number
+}
+
+/**
+ * Project.chatRoom
+ */
+export type Project$chatRoomArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChatRoom
+   */
+  select?: Prisma.ChatRoomSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChatRoom
+   */
+  omit?: Prisma.ChatRoomOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChatRoomInclude<ExtArgs> | null
+  where?: Prisma.ChatRoomWhereInput
+}
+
+/**
+ * Project.posts
+ */
+export type Project$postsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Post
+   */
+  select?: Prisma.PostSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Post
+   */
+  omit?: Prisma.PostOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PostInclude<ExtArgs> | null
+  where?: Prisma.PostWhereInput
+  orderBy?: Prisma.PostOrderByWithRelationInput | Prisma.PostOrderByWithRelationInput[]
+  cursor?: Prisma.PostWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PostScalarFieldEnum | Prisma.PostScalarFieldEnum[]
+}
+
+/**
+ * Project.tasks
+ */
+export type Project$tasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Task
+   */
+  select?: Prisma.TaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Task
+   */
+  omit?: Prisma.TaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TaskInclude<ExtArgs> | null
+  where?: Prisma.TaskWhereInput
+  orderBy?: Prisma.TaskOrderByWithRelationInput | Prisma.TaskOrderByWithRelationInput[]
+  cursor?: Prisma.TaskWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
+}
+
+/**
+ * Project.projectApplications
+ */
+export type Project$projectApplicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectApplication
+   */
+  select?: Prisma.ProjectApplicationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectApplication
+   */
+  omit?: Prisma.ProjectApplicationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectApplicationInclude<ExtArgs> | null
+  where?: Prisma.ProjectApplicationWhereInput
+  orderBy?: Prisma.ProjectApplicationOrderByWithRelationInput | Prisma.ProjectApplicationOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectApplicationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectApplicationScalarFieldEnum | Prisma.ProjectApplicationScalarFieldEnum[]
 }
 
 /**
