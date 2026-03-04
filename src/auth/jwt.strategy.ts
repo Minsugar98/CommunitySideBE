@@ -20,10 +20,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request: Request): string | null => {
           // 쿠키 객체와 access_token의 타입을 명시적으로 지정하여 any 에러를 해결합니다.
-          const cookies = (request?.cookies as Record<
-            string,
-            string | undefined
-          >) || {};
+          const cookies =
+            (request?.cookies as Record<string, string | undefined>) || {};
           return cookies?.access_token ?? null;
         },
       ]),

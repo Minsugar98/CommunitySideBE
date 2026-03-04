@@ -6,14 +6,30 @@ import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({
-    origin: ['http://localhost:3000'],
-    methods: 'GET,PATCH,POST,DELETE',
-    allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization',
-    exposedHeaders: 'Custom-Header',
-    credentials: true,
-  });
+
+  // 💡 1. cookieParser를 CORS보다 먼저 배치 (일부 환경 대응)
   app.use(cookieParser());
+
+  // 💡 2. CORS 설정을 최상단에 배치하고 설정을 강화
+  app.enableCors({
+    origin: (origin, callback) => {
+      // origin이 없거나(Postman 등) localhost인 경우 허용
+      if (
+        !origin ||
+        origin.includes('localhost') ||
+        origin.includes('127.0.0.1')
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
+    optionsSuccessStatus: 200, // 💡 사용자 환경에서 200으로 응답하므로 명시적으로 맞춤
+    maxAge: 86400, // 💡 Preflight 응답을 24시간 동안 캐싱하도록 허용 (불필요한 OPTIONS 요청 감소)
+  });
 
   // 1. 전역 유효성 검사 파이프 설정
   app.useGlobalPipes(

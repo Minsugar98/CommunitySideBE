@@ -1,10 +1,16 @@
-import { IsString, IsInt, IsIn } from 'class-validator';
+import { IsString, IsInt, IsIn, IsOptional } from 'class-validator';
 
 export class PatchApplicationDto {
   @IsInt()
-  userId: number; // 상태를 바꿀 지원자의 ID
+  userId: number;
 
   @IsString()
-  @IsIn(['ACCEPTED', 'REJECTED']) // 허용할 문자열을 제한합니다.
-  status: string; 
+  @IsIn(['ACCEPTED', 'REJECTED']) 
+  @IsOptional()
+  status?: string;
+
+  // 💡 이 부분을 추가해야 프론트에서 보내는 position을 허용합니다!
+  @IsString()
+  @IsOptional()
+  position?: string; 
 }

@@ -5,6 +5,7 @@ import { BaseException } from '../common/interceptors/BaseException.js';
 import { PatchApplicationDto } from './dto/projectApplication.dto.js'
 import { EditProjectDto} from './dto/editProject.dto.js'
 import { GetProjectsDto } from './dto/getProject.dto.js'
+import { CreateApplicationDto } from './dto/createApplication.dto.js'
 @Injectable()
 export class ProjectService {
   private readonly logger = new Logger(ProjectService.name)
@@ -27,8 +28,9 @@ export class ProjectService {
     
     }
   
-    async projectJoin(userId:number, projectId:number){
+    async projectJoin(userId:number, projectId:number,data : CreateApplicationDto){
 
+      const { message, position } = data;
       const projectData = await this.prisma.project.findUnique({
         where:{id:projectId},
       })
@@ -53,6 +55,7 @@ export class ProjectService {
       await this.prisma.projectApplication.create({
         data: {
           userId,projectId
+          ,message,position
         }
       })
     }
@@ -71,7 +74,17 @@ export class ProjectService {
         where:{
           projectId,
           Status:"PENDING"
-        }
+        },
+        include: {
+          user: {
+            select: {
+              id: true,
+              nickname: true,
+              profileImage: true,
+            },
+          },
+        },
+        
       })
       return data
 
@@ -81,38 +94,33 @@ export class ProjectService {
       projectId: number,
       dto: PatchApplicationDto,
     ) {
-      // 1. 프로젝트 리더 권한 확인
+      // 1. 프로젝트 리더 권한 확인 (이전 로직 동일...)
       const project = await this.prisma.project.findUnique({
         where: { id: projectId },
         select: { leaderId: true },
       });
     
-      if (!project) {
-        throw new BaseException('존재하지 않는 프로젝트입니다.', HttpStatus.NOT_FOUND);
-      }
+      if (!project) throw new BaseException('존재하지 않는 프로젝트입니다.', HttpStatus.NOT_FOUND);
+      if (project.leaderId !== leaderId) throw new BaseException('권한이 없습니다.', HttpStatus.FORBIDDEN);
     
-      if (project.leaderId !== leaderId) {
-        throw new BaseException('승인/거절 권한이 없습니다.', HttpStatus.FORBIDDEN);
-      }
-    
-      // 2. 해당 지원 내역 찾기 및 업데이트
-
+      // 2. 업데이트 수행
       try {
         const updatedApplication = await this.prisma.projectApplication.update({
           where: {
-            userId_projectId: { // 복합 유니크 키 활용
+            userId_projectId: {
               userId: dto.userId,
               projectId: projectId,
             },
           },
           data: {
-            Status: dto.status, // "ACCEPTED" 또는 "REJECTED" 문자열 저장
+            Status: dto.status,
+            // 💡 dto에 position이 있으면 업데이트하고, 없으면 기존 값을 유지합니다.
+            ...(dto.position && { position: dto.position }), 
           },
         });
     
         return updatedApplication;
       } catch (error) {
-        // 지원 내역이 없는 경우 (Prisma 에러 P2025)
         throw new BaseException('지원 내역을 찾을 수 없습니다.', HttpStatus.NOT_FOUND);
       }
     }
@@ -148,23 +156,28 @@ export class ProjectService {
       }
     }
     async findAll(query: GetProjectsDto) {
-      const { page = 1, limit = 10,  status, position, techStack } = query;
-  const skip = (page - 1) * limit;
-
-  const where: any = {
+      // 1. DTO에서 meetingType 추출
+      const { page = 1, limit = 10, status, position, techStack, meetingType } = query;
+      const skip = (page - 1) * limit;
     
-    ...(status !== undefined && { status }),
-
-    // 💡 여러 포지션 중 하나라도 배열에 들어있는지 확인 (hasSome)
-    ...(position && position.length > 0 && {
-      position: { hasSome: position },
-    }),
-
-    // 💡 여러 기술 스택 중 하나라도 배열에 들어있는지 확인 (hasSome)
-    ...(techStack && techStack.length > 0 && {
-      techStacks: { hasSome: techStack },
-    }),
-  };
+      const where: any = {
+        // 💡 모집 상태 필터 (true/false)
+        ...(status !== undefined && { status }),
+    
+        // 💡 진행 방식 필터 (문자열 일치 확인)
+        // meetingType이 'ONLINE', 'OFFLINE', 'HYBRID'와 정확히 일치하는 데이터 검색
+        ...(meetingType && { meetingType }),
+    
+        // 💡 포지션 필터 (hasSome)
+        ...(position && position.length > 0 && {
+          position: { hasSome: position },
+        }),
+    
+        // 💡 기술 스택 필터 (hasSome)
+        ...(techStack && techStack.length > 0 && {
+          techStacks: { hasSome: techStack },
+        }),
+      };
     
       const [total, projects] = await Promise.all([
         this.prisma.project.count({ where }),
@@ -175,7 +188,7 @@ export class ProjectService {
           orderBy: { createdAt: 'desc' },
           include: {
             leader: {
-              select: { nickname: true, bio: true }
+              select: { nickname: true, bio: true, id: true, profileImage: true }
             }
           }
         }),
@@ -187,7 +200,7 @@ export class ProjectService {
           total,
           page,
           lastPage: Math.ceil(total / limit),
-          hasMore: page < Math.ceil(total / limit) // 무한스크롤 시 다음 페이지 존재 여부
+          hasMore: page < Math.ceil(total / limit)
         }
       };
     }
@@ -235,15 +248,40 @@ export class ProjectService {
       };
     }
 
-    async findProjects(projectId:number) {
+    async findProjects(projectId: number) {
       const data = await this.prisma.project.findUnique({
-        where:{
-          id:projectId
-        }
-      })
-
-      if(!data){
-        throw new BaseException('존재하는 프로젝트가 없습니다.',HttpStatus.NOT_FOUND)
+        where: {
+          id: projectId,
+        },
+        include: {
+          leader: {
+            select: {
+              id: true,
+              nickname: true,
+              profileImage: true,
+            },
+          },
+          // 💡 프로젝트 신청 테이블(ProjectApplication)에서 승인된 팀원들만 가져오기
+          projectApplications: {
+            where: {
+              Status: 'ACCEPTED', // 승인된 상태만 필터링
+            },
+            select: {
+              position:true,
+              user: { // 신청한 유저의 정보를 선택
+                select: {
+                  id: true,
+                  nickname: true,
+                  profileImage: true,
+                },
+              },
+            },
+          },
+        },
+      });
+    
+      if (!data) {
+        throw new BaseException('존재하는 프로젝트가 없습니다.', HttpStatus.NOT_FOUND);
       }
       return data;
     }
@@ -275,7 +313,7 @@ export class ProjectService {
           orderBy: { createdAt: 'desc' },
           include: {
             leader: {
-              select: { nickname: true }
+              select: { nickname: true,id:true}
             },
             // 필요한 경우 프로젝트의 다른 정보(채팅방 유무 등)도 include 가능
           },

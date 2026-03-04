@@ -44,6 +44,7 @@ export type ProjectApplicationMinAggregateOutputType = {
   projectId: number | null
   message: string | null
   Status: string | null
+  position: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +55,7 @@ export type ProjectApplicationMaxAggregateOutputType = {
   projectId: number | null
   message: string | null
   Status: string | null
+  position: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -64,6 +66,7 @@ export type ProjectApplicationCountAggregateOutputType = {
   projectId: number
   message: number
   Status: number
+  position: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -88,6 +91,7 @@ export type ProjectApplicationMinAggregateInputType = {
   projectId?: true
   message?: true
   Status?: true
+  position?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -98,6 +102,7 @@ export type ProjectApplicationMaxAggregateInputType = {
   projectId?: true
   message?: true
   Status?: true
+  position?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -108,6 +113,7 @@ export type ProjectApplicationCountAggregateInputType = {
   projectId?: true
   message?: true
   Status?: true
+  position?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -205,6 +211,7 @@ export type ProjectApplicationGroupByOutputType = {
   projectId: number
   message: string | null
   Status: string
+  position: string | null
   createdAt: Date
   updatedAt: Date
   _count: ProjectApplicationCountAggregateOutputType | null
@@ -238,6 +245,7 @@ export type ProjectApplicationWhereInput = {
   projectId?: Prisma.IntFilter<"ProjectApplication"> | number
   message?: Prisma.StringNullableFilter<"ProjectApplication"> | string | null
   Status?: Prisma.StringFilter<"ProjectApplication"> | string
+  position?: Prisma.StringNullableFilter<"ProjectApplication"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ProjectApplication"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProjectApplication"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -250,6 +258,7 @@ export type ProjectApplicationOrderByWithRelationInput = {
   projectId?: Prisma.SortOrder
   message?: Prisma.SortOrderInput | Prisma.SortOrder
   Status?: Prisma.SortOrder
+  position?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -266,6 +275,7 @@ export type ProjectApplicationWhereUniqueInput = Prisma.AtLeast<{
   projectId?: Prisma.IntFilter<"ProjectApplication"> | number
   message?: Prisma.StringNullableFilter<"ProjectApplication"> | string | null
   Status?: Prisma.StringFilter<"ProjectApplication"> | string
+  position?: Prisma.StringNullableFilter<"ProjectApplication"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ProjectApplication"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProjectApplication"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -278,6 +288,7 @@ export type ProjectApplicationOrderByWithAggregationInput = {
   projectId?: Prisma.SortOrder
   message?: Prisma.SortOrderInput | Prisma.SortOrder
   Status?: Prisma.SortOrder
+  position?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ProjectApplicationCountOrderByAggregateInput
@@ -296,6 +307,7 @@ export type ProjectApplicationScalarWhereWithAggregatesInput = {
   projectId?: Prisma.IntWithAggregatesFilter<"ProjectApplication"> | number
   message?: Prisma.StringNullableWithAggregatesFilter<"ProjectApplication"> | string | null
   Status?: Prisma.StringWithAggregatesFilter<"ProjectApplication"> | string
+  position?: Prisma.StringNullableWithAggregatesFilter<"ProjectApplication"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ProjectApplication"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ProjectApplication"> | Date | string
 }
@@ -303,6 +315,7 @@ export type ProjectApplicationScalarWhereWithAggregatesInput = {
 export type ProjectApplicationCreateInput = {
   message?: string | null
   Status?: string
+  position?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProjectApplicationsInput
@@ -315,6 +328,7 @@ export type ProjectApplicationUncheckedCreateInput = {
   projectId: number
   message?: string | null
   Status?: string
+  position?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -322,6 +336,7 @@ export type ProjectApplicationUncheckedCreateInput = {
 export type ProjectApplicationUpdateInput = {
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Status?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutProjectApplicationsNestedInput
@@ -334,6 +349,7 @@ export type ProjectApplicationUncheckedUpdateInput = {
   projectId?: Prisma.IntFieldUpdateOperationsInput | number
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Status?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -344,6 +360,7 @@ export type ProjectApplicationCreateManyInput = {
   projectId: number
   message?: string | null
   Status?: string
+  position?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -351,6 +368,7 @@ export type ProjectApplicationCreateManyInput = {
 export type ProjectApplicationUpdateManyMutationInput = {
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Status?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -361,6 +379,7 @@ export type ProjectApplicationUncheckedUpdateManyInput = {
   projectId?: Prisma.IntFieldUpdateOperationsInput | number
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Status?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -386,6 +405,7 @@ export type ProjectApplicationCountOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   message?: Prisma.SortOrder
   Status?: Prisma.SortOrder
+  position?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -402,6 +422,7 @@ export type ProjectApplicationMaxOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   message?: Prisma.SortOrder
   Status?: Prisma.SortOrder
+  position?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -412,6 +433,7 @@ export type ProjectApplicationMinOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   message?: Prisma.SortOrder
   Status?: Prisma.SortOrder
+  position?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -509,6 +531,7 @@ export type ProjectApplicationUncheckedUpdateManyWithoutProjectNestedInput = {
 export type ProjectApplicationCreateWithoutUserInput = {
   message?: string | null
   Status?: string
+  position?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutProjectApplicationsInput
@@ -519,6 +542,7 @@ export type ProjectApplicationUncheckedCreateWithoutUserInput = {
   projectId: number
   message?: string | null
   Status?: string
+  position?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -558,6 +582,7 @@ export type ProjectApplicationScalarWhereInput = {
   projectId?: Prisma.IntFilter<"ProjectApplication"> | number
   message?: Prisma.StringNullableFilter<"ProjectApplication"> | string | null
   Status?: Prisma.StringFilter<"ProjectApplication"> | string
+  position?: Prisma.StringNullableFilter<"ProjectApplication"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ProjectApplication"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ProjectApplication"> | Date | string
 }
@@ -565,6 +590,7 @@ export type ProjectApplicationScalarWhereInput = {
 export type ProjectApplicationCreateWithoutProjectInput = {
   message?: string | null
   Status?: string
+  position?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProjectApplicationsInput
@@ -575,6 +601,7 @@ export type ProjectApplicationUncheckedCreateWithoutProjectInput = {
   userId: number
   message?: string | null
   Status?: string
+  position?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -610,6 +637,7 @@ export type ProjectApplicationCreateManyUserInput = {
   projectId: number
   message?: string | null
   Status?: string
+  position?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -617,6 +645,7 @@ export type ProjectApplicationCreateManyUserInput = {
 export type ProjectApplicationUpdateWithoutUserInput = {
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Status?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutProjectApplicationsNestedInput
@@ -627,6 +656,7 @@ export type ProjectApplicationUncheckedUpdateWithoutUserInput = {
   projectId?: Prisma.IntFieldUpdateOperationsInput | number
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Status?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -636,6 +666,7 @@ export type ProjectApplicationUncheckedUpdateManyWithoutUserInput = {
   projectId?: Prisma.IntFieldUpdateOperationsInput | number
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Status?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -645,6 +676,7 @@ export type ProjectApplicationCreateManyProjectInput = {
   userId: number
   message?: string | null
   Status?: string
+  position?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -652,6 +684,7 @@ export type ProjectApplicationCreateManyProjectInput = {
 export type ProjectApplicationUpdateWithoutProjectInput = {
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Status?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutProjectApplicationsNestedInput
@@ -662,6 +695,7 @@ export type ProjectApplicationUncheckedUpdateWithoutProjectInput = {
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Status?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -671,6 +705,7 @@ export type ProjectApplicationUncheckedUpdateManyWithoutProjectInput = {
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Status?: Prisma.StringFieldUpdateOperationsInput | string
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -683,6 +718,7 @@ export type ProjectApplicationSelect<ExtArgs extends runtime.Types.Extensions.In
   projectId?: boolean
   message?: boolean
   Status?: boolean
+  position?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -695,6 +731,7 @@ export type ProjectApplicationSelectCreateManyAndReturn<ExtArgs extends runtime.
   projectId?: boolean
   message?: boolean
   Status?: boolean
+  position?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -707,6 +744,7 @@ export type ProjectApplicationSelectUpdateManyAndReturn<ExtArgs extends runtime.
   projectId?: boolean
   message?: boolean
   Status?: boolean
+  position?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -719,11 +757,12 @@ export type ProjectApplicationSelectScalar = {
   projectId?: boolean
   message?: boolean
   Status?: boolean
+  position?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProjectApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "projectId" | "message" | "Status" | "createdAt" | "updatedAt", ExtArgs["result"]["projectApplication"]>
+export type ProjectApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "projectId" | "message" | "Status" | "position" | "createdAt" | "updatedAt", ExtArgs["result"]["projectApplication"]>
 export type ProjectApplicationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
@@ -749,6 +788,7 @@ export type $ProjectApplicationPayload<ExtArgs extends runtime.Types.Extensions.
     projectId: number
     message: string | null
     Status: string
+    position: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["projectApplication"]>
@@ -1181,6 +1221,7 @@ export interface ProjectApplicationFieldRefs {
   readonly projectId: Prisma.FieldRef<"ProjectApplication", 'Int'>
   readonly message: Prisma.FieldRef<"ProjectApplication", 'String'>
   readonly Status: Prisma.FieldRef<"ProjectApplication", 'String'>
+  readonly position: Prisma.FieldRef<"ProjectApplication", 'String'>
   readonly createdAt: Prisma.FieldRef<"ProjectApplication", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ProjectApplication", 'DateTime'>
 }

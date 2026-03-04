@@ -3,11 +3,22 @@ import { Injectable, HttpStatus } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreateTaskDto } from './dto/taskCreate.dto.js';
 import { BaseException } from '../common/interceptors/BaseException.js';
+import { UpdateTaskDto } from './dto/updateTask.dto.js'
 
 @Injectable()
 export class TaskService {
   constructor(private prisma: PrismaService) {}
 
+  async findMyTasksByProject(projectId: number, userId: number) {
+    return await this.prisma.task.findMany({
+      where: {
+        projectId,
+        assignedToId: userId,
+      },
+      include: { project: { select: { title: true } } } // 프로젝트명 포함
+    });
+  }
+  
   async createTask(userId: number, projectId: number, dto: CreateTaskDto) {
     const { startDate, dueDate, assignedToId, ...rest } = dto;
 
@@ -104,6 +115,7 @@ export class TaskService {
         assignedTo: {
           select: {
             email: true,
+            id:true,
           },
         },
       },
@@ -151,6 +163,46 @@ export class TaskService {
     return data;
   }
 
+  async updateTask(
+    userId: number,
+    projectId: number,
+    taskId: number,
+    updateTaskDto: UpdateTaskDto,
+  ) {
+    // 1. 일정을 찾으면서 동시에 프로젝트 리더 정보까지 가져오기
+    const task = await this.prisma.task.findUnique({
+      where: { id: taskId },
+      include: {
+        project: {
+          select: {
+            leaderId: true,
+          },
+        },
+      },
+    });
+  
+    // 2. 예외 처리: 일정이 없거나 다른 프로젝트의 일정인 경우
+    if (!task || task.projectId !== projectId) {
+      throw new BaseException('수정할 일정을 찾을 수 없습니다.',HttpStatus.NOT_FOUND);
+    }
+  
+    // 3. 🔒 권한 체크: 담당자 본인 혹은 프로젝트 리더인가?
+    const isAssignedUser = task.assignedToId === userId;
+    const isLeader = task.project.leaderId === userId;
+  
+    if (!isAssignedUser && !isLeader) {
+      throw new BaseException('일정 수정 권한이 없습니다. (담당자 또는 리더만 가능)',HttpStatus.UNAUTHORIZED);
+    }
+  
+    // 4. 데이터 업데이트
+    return await this.prisma.task.update({
+      where: { id: taskId },
+      data: {
+        ...updateTaskDto,
+      },
+    });
+  }
+
   async deleteTask(userId: number, projectId: number, taskId: number) {
     const project = await this.prisma.project.findUnique({
       where: {
@@ -166,4 +218,5 @@ export class TaskService {
     });
     return;
   }
+  
 }

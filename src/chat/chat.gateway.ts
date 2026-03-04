@@ -26,13 +26,18 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   server: Server;
 
   async handleConnection(client: Socket) {
-    const tokenRaw = client.handshake.query?.token as string;
+    const rawCookie = client.handshake.headers.cookie;
     const projectIdRaw = client.handshake.query?.projectId as string;
 
     try {
-      if (!tokenRaw || !projectIdRaw) throw new Error('데이터 누락');
+      if (!rawCookie || !projectIdRaw) throw new Error('데이터 누락');
 
-      const token = tokenRaw.replace(/"/g, '');
+      const token = rawCookie
+      .split('; ')
+      .find(row => row.startsWith('access_token='))
+      ?.split('=')[1];
+
+    if (!token) throw new Error('access_token이 쿠키에 없습니다.');
       const projectId = parseInt(projectIdRaw.replace(/"/g, ''), 10);
 
       const payload = this.jwtService.verify(token);

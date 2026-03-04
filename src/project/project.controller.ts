@@ -5,6 +5,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard.js';
 import { PatchApplicationDto } from './dto/projectApplication.dto.js'
 import { EditProjectDto } from './dto/editProject.dto.js'
 import { GetProjectsDto } from './dto/getProject.dto.js'
+import { CreateApplicationDto  } from './dto/createApplication.dto.js'
 
 @Controller('project')
 export class ProjectController {
@@ -17,15 +18,32 @@ export class ProjectController {
   async projectCreate(@Req() {user}:any,@Body() projectCreateDto: ProjectCreateDto){
     const userId = user.id
     await this.projectService.projectCreate(userId, projectCreateDto)
+
+    return {
+      success: true,
+      statusCode: HttpStatus.CREATED,
+      message: '게시글 작성했습니다.',
+      timeStamp: new Date(),
+    };
   }
 
   @Post(':projectId/join')
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.CREATED)
-  async projectJoin(@Req() {user}:any, @Param('projectId',ParseIntPipe) projectId: number){
+  async projectJoin(
+    @Req() {user}:any,
+    @Param('projectId',ParseIntPipe) projectId: number,
+    @Body() createApplicationDto: CreateApplicationDto // 💡 DTO 추가
+    ){
     const userId = user.id
     // this.logger.error(userId,projectId)
-    await this.projectService.projectJoin(userId, projectId)
+    await this.projectService.projectJoin(userId, projectId,createApplicationDto)
+    return {
+      success: true,
+      statusCode: HttpStatus.CREATED,
+      message: '프로젝트 참여 신청이 완료되었습니다..',
+      timeStamp: new Date(),
+    };
   }
 
   @Get(':projectId/projectapplication')

@@ -14,6 +14,9 @@ export class GetProjectsDto {
   @IsInt()
   limit?: number = 10;
 
+  @IsOptional()
+  @IsString() // ENUM 대신 일반 문자열로 검증
+  meetingType?: string;
   
   @IsOptional()
   @IsBoolean()

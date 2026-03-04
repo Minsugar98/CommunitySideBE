@@ -31,20 +31,35 @@ export class AuthController {
       res.cookie('access_token', accessToken, {
         httpOnly: true, // 자바스크립트에서 접근 불가 (보안)
         secure: process.env.NODE_ENV === 'production', // HTTPS에서만 전송
-        sameSite: 'strict', // CSRF 방어
+        sameSite: 'lax', // CSRF 방어
         maxAge: 3600000, // 1시간 (밀리초 단위)
       });
 
-      return { message: '로그인 성공' };
+      return {
+        success: true,
+        statusCode: HttpStatus.OK,
+        message: '로그인 성공',
+        timeStamp: new Date(),
+      };
     } catch (e) {
-      this.logger.error(`로그인 에러 발생 (${loginDto.email}): ${e.message}`, e.stack);
+      this.logger.error(
+        `로그인 에러 발생 (${loginDto.email}): ${e.message}`,
+        e.stack,
+      );
       throw e;
     }
   }
 
   @Post('logout')
+  @HttpCode(200)
   async logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('access_token');
-    return { message: '로그아웃 성공' };
+    // success 필드를 추가하여 프론트엔드 규격을 맞춤
+    return {
+      success: true,
+      statusCode: 200,
+      message: '로그아웃 성공',
+      timStamp: new Date()
+    };
   }
 }

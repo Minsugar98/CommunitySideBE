@@ -24,38 +24,46 @@ export class UserController {
   @HttpCode(HttpStatus.CREATED)
   async signUp(@Body() signUpDto: SignUpDto) {
     await this.userService.signUp(signUpDto);
-    return { message: '회원가입 성공' };
+    return {
+      success: true,
+      statusCode: HttpStatus.CREATED,
+      message: '회원가입 성공 성공',
+      timeStamp: new Date(),
+    };
   }
 
-  @Patch('/edit')
+  @Patch('edit')
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   async userEdit(
     @Req() { user }: any, // Request 객체에서 유저 정보를 구조 분해 할당
     @Body() userEditDto: UserEditDto,
   ) {
-    this.logger.log(user.id)
+    this.logger.log(user.id);
     // 인증 가드에서 주입해준 유저 ID 사용 (예: req.user.id)
-    const userId = user.id; 
-    
+    const userId = user.id;
+
     await this.userService.editUser(userId, userEditDto);
-    return { message: '회원정보 수정 성공' };
+    return {
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: '회원 정보 수정 성공',
+      timeStamp: new Date(),
+    };
   }
 
   @Get('/me')
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
-  async userMe(
-    @Req() {user}:any,
-  ){
-    const userId = user.id
+  async userMe(@Req() { user }: any) {
+    const userId = user.id;
 
     const userData = await this.userService.userMe(userId);
-    return { 
+    return {
       success: true,
-      statusCode : HttpStatus.OK,
-      data : userData,
-      timeStamp: new Date()
-    }
+      statusCode: HttpStatus.OK,
+      data: userData,
+      timeStamp: new Date(),
+    };
   }
 }

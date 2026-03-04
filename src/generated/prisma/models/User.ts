@@ -46,6 +46,7 @@ export type UserMinAggregateOutputType = {
   bio: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  profileImage: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -58,6 +59,7 @@ export type UserMaxAggregateOutputType = {
   bio: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  profileImage: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -71,6 +73,7 @@ export type UserCountAggregateOutputType = {
   urlLinks: number
   createdAt: number
   updatedAt: number
+  profileImage: number
   _all: number
 }
 
@@ -95,6 +98,7 @@ export type UserMinAggregateInputType = {
   bio?: true
   createdAt?: true
   updatedAt?: true
+  profileImage?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -107,6 +111,7 @@ export type UserMaxAggregateInputType = {
   bio?: true
   createdAt?: true
   updatedAt?: true
+  profileImage?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -120,6 +125,7 @@ export type UserCountAggregateInputType = {
   urlLinks?: true
   createdAt?: true
   updatedAt?: true
+  profileImage?: true
   _all?: true
 }
 
@@ -220,6 +226,7 @@ export type UserGroupByOutputType = {
   urlLinks: string[]
   createdAt: Date
   updatedAt: Date
+  profileImage: string | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -256,6 +263,7 @@ export type UserWhereInput = {
   urlLinks?: Prisma.StringNullableListFilter<"User">
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  profileImage?: Prisma.StringNullableFilter<"User"> | string | null
   projects?: Prisma.ProjectListRelationFilter
   sentMessages?: Prisma.MessageListRelationFilter
   authoredPosts?: Prisma.PostListRelationFilter
@@ -276,6 +284,7 @@ export type UserOrderByWithRelationInput = {
   urlLinks?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
   projects?: Prisma.ProjectOrderByRelationAggregateInput
   sentMessages?: Prisma.MessageOrderByRelationAggregateInput
   authoredPosts?: Prisma.PostOrderByRelationAggregateInput
@@ -288,17 +297,18 @@ export type UserOrderByWithRelationInput = {
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: number
   email?: string
+  nickname?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   password?: Prisma.StringFilter<"User"> | string
-  nickname?: Prisma.StringNullableFilter<"User"> | string | null
   position?: Prisma.StringNullableFilter<"User"> | string | null
   career?: Prisma.IntNullableFilter<"User"> | number | null
   bio?: Prisma.StringNullableFilter<"User"> | string | null
   urlLinks?: Prisma.StringNullableListFilter<"User">
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  profileImage?: Prisma.StringNullableFilter<"User"> | string | null
   projects?: Prisma.ProjectListRelationFilter
   sentMessages?: Prisma.MessageListRelationFilter
   authoredPosts?: Prisma.PostListRelationFilter
@@ -306,7 +316,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   assignedTasks?: Prisma.TaskListRelationFilter
   projectApplications?: Prisma.ProjectApplicationListRelationFilter
   userLogs?: Prisma.UserLogListRelationFilter
-}, "id" | "email">
+}, "id" | "email" | "nickname">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -319,6 +329,7 @@ export type UserOrderByWithAggregationInput = {
   urlLinks?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -340,6 +351,7 @@ export type UserScalarWhereWithAggregatesInput = {
   urlLinks?: Prisma.StringNullableListFilter<"User">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  profileImage?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
@@ -352,6 +364,7 @@ export type UserCreateInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectCreateNestedManyWithoutLeaderInput
   sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostCreateNestedManyWithoutUserInput
@@ -372,6 +385,7 @@ export type UserUncheckedCreateInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutLeaderInput
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
@@ -391,6 +405,7 @@ export type UserUpdateInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUpdateManyWithoutLeaderNestedInput
   sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUpdateManyWithoutUserNestedInput
@@ -411,6 +426,7 @@ export type UserUncheckedUpdateInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutLeaderNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
@@ -431,6 +447,7 @@ export type UserCreateManyInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -443,6 +460,7 @@ export type UserUpdateManyMutationInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -456,6 +474,7 @@ export type UserUncheckedUpdateManyInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type StringNullableListFilter<$PrismaModel = never> = {
@@ -477,6 +496,7 @@ export type UserCountOrderByAggregateInput = {
   urlLinks?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -494,6 +514,7 @@ export type UserMaxOrderByAggregateInput = {
   bio?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -506,6 +527,7 @@ export type UserMinOrderByAggregateInput = {
   bio?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  profileImage?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -670,6 +692,7 @@ export type UserCreateWithoutProjectsInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -689,6 +712,7 @@ export type UserUncheckedCreateWithoutProjectsInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -723,6 +747,7 @@ export type UserUpdateWithoutProjectsInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -742,6 +767,7 @@ export type UserUncheckedUpdateWithoutProjectsInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -760,6 +786,7 @@ export type UserCreateWithoutProjectApplicationsInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectCreateNestedManyWithoutLeaderInput
   sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostCreateNestedManyWithoutUserInput
@@ -779,6 +806,7 @@ export type UserUncheckedCreateWithoutProjectApplicationsInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutLeaderInput
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
@@ -813,6 +841,7 @@ export type UserUpdateWithoutProjectApplicationsInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUpdateManyWithoutLeaderNestedInput
   sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUpdateManyWithoutUserNestedInput
@@ -832,6 +861,7 @@ export type UserUncheckedUpdateWithoutProjectApplicationsInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutLeaderNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
@@ -850,6 +880,7 @@ export type UserCreateWithoutUserLogsInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectCreateNestedManyWithoutLeaderInput
   sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostCreateNestedManyWithoutUserInput
@@ -869,6 +900,7 @@ export type UserUncheckedCreateWithoutUserLogsInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutLeaderInput
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
@@ -903,6 +935,7 @@ export type UserUpdateWithoutUserLogsInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUpdateManyWithoutLeaderNestedInput
   sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUpdateManyWithoutUserNestedInput
@@ -922,6 +955,7 @@ export type UserUncheckedUpdateWithoutUserLogsInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutLeaderNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
@@ -940,6 +974,7 @@ export type UserCreateWithoutSentMessagesInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectCreateNestedManyWithoutLeaderInput
   authoredPosts?: Prisma.PostCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -959,6 +994,7 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutLeaderInput
   authoredPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -993,6 +1029,7 @@ export type UserUpdateWithoutSentMessagesInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUpdateManyWithoutLeaderNestedInput
   authoredPosts?: Prisma.PostUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -1012,6 +1049,7 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutLeaderNestedInput
   authoredPosts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -1030,6 +1068,7 @@ export type UserCreateWithoutAuthoredPostsInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectCreateNestedManyWithoutLeaderInput
   sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentCreateNestedManyWithoutUserInput
@@ -1049,6 +1088,7 @@ export type UserUncheckedCreateWithoutAuthoredPostsInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutLeaderInput
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutUserInput
@@ -1083,6 +1123,7 @@ export type UserUpdateWithoutAuthoredPostsInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUpdateManyWithoutLeaderNestedInput
   sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUpdateManyWithoutUserNestedInput
@@ -1102,6 +1143,7 @@ export type UserUncheckedUpdateWithoutAuthoredPostsInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutLeaderNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -1120,6 +1162,7 @@ export type UserCreateWithoutAuthoredCommentsInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectCreateNestedManyWithoutLeaderInput
   sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostCreateNestedManyWithoutUserInput
@@ -1139,6 +1182,7 @@ export type UserUncheckedCreateWithoutAuthoredCommentsInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutLeaderInput
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
@@ -1173,6 +1217,7 @@ export type UserUpdateWithoutAuthoredCommentsInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUpdateManyWithoutLeaderNestedInput
   sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUpdateManyWithoutUserNestedInput
@@ -1192,6 +1237,7 @@ export type UserUncheckedUpdateWithoutAuthoredCommentsInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutLeaderNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
@@ -1210,6 +1256,7 @@ export type UserCreateWithoutAssignedTasksInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectCreateNestedManyWithoutLeaderInput
   sentMessages?: Prisma.MessageCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostCreateNestedManyWithoutUserInput
@@ -1229,6 +1276,7 @@ export type UserUncheckedCreateWithoutAssignedTasksInput = {
   urlLinks?: Prisma.UserCreateurlLinksInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
+  profileImage?: string | null
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutLeaderInput
   sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutUserInput
   authoredPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
@@ -1263,6 +1311,7 @@ export type UserUpdateWithoutAssignedTasksInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUpdateManyWithoutLeaderNestedInput
   sentMessages?: Prisma.MessageUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUpdateManyWithoutUserNestedInput
@@ -1282,6 +1331,7 @@ export type UserUncheckedUpdateWithoutAssignedTasksInput = {
   urlLinks?: Prisma.UserUpdateurlLinksInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profileImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutLeaderNestedInput
   sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutUserNestedInput
   authoredPosts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
@@ -1386,6 +1436,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   urlLinks?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  profileImage?: boolean
   projects?: boolean | Prisma.User$projectsArgs<ExtArgs>
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
   authoredPosts?: boolean | Prisma.User$authoredPostsArgs<ExtArgs>
@@ -1407,6 +1458,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   urlLinks?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  profileImage?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1420,6 +1472,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   urlLinks?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  profileImage?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -1433,9 +1486,10 @@ export type UserSelectScalar = {
   urlLinks?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  profileImage?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "nickname" | "position" | "career" | "bio" | "urlLinks" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "nickname" | "position" | "career" | "bio" | "urlLinks" | "createdAt" | "updatedAt" | "profileImage", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   projects?: boolean | Prisma.User$projectsArgs<ExtArgs>
   sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
@@ -1471,6 +1525,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     urlLinks: string[]
     createdAt: Date
     updatedAt: Date
+    profileImage: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1911,6 +1966,7 @@ export interface UserFieldRefs {
   readonly urlLinks: Prisma.FieldRef<"User", 'String[]'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly profileImage: Prisma.FieldRef<"User", 'String'>
 }
     
 

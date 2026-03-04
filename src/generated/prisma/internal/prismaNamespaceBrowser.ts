@@ -88,7 +88,8 @@ export const UserScalarFieldEnum = {
   bio: 'bio',
   urlLinks: 'urlLinks',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  profileImage: 'profileImage'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -99,6 +100,8 @@ export const ProjectScalarFieldEnum = {
   title: 'title',
   summary: 'summary',
   content: 'content',
+  meetingType: 'meetingType',
+  recruitmentQuota: 'recruitmentQuota',
   position: 'position',
   techStacks: 'techStacks',
   status: 'status',
@@ -117,6 +120,7 @@ export const ProjectApplicationScalarFieldEnum = {
   projectId: 'projectId',
   message: 'message',
   Status: 'Status',
+  position: 'position',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

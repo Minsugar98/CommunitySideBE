@@ -28,11 +28,13 @@ export type AggregateProject = {
 
 export type ProjectAvgAggregateOutputType = {
   id: number | null
+  recruitmentQuota: number | null
   leaderId: number | null
 }
 
 export type ProjectSumAggregateOutputType = {
   id: number | null
+  recruitmentQuota: number | null
   leaderId: number | null
 }
 
@@ -41,6 +43,8 @@ export type ProjectMinAggregateOutputType = {
   title: string | null
   summary: string | null
   content: string | null
+  meetingType: string | null
+  recruitmentQuota: number | null
   status: boolean | null
   startDate: string | null
   endDate: string | null
@@ -53,6 +57,8 @@ export type ProjectMaxAggregateOutputType = {
   title: string | null
   summary: string | null
   content: string | null
+  meetingType: string | null
+  recruitmentQuota: number | null
   status: boolean | null
   startDate: string | null
   endDate: string | null
@@ -65,6 +71,8 @@ export type ProjectCountAggregateOutputType = {
   title: number
   summary: number
   content: number
+  meetingType: number
+  recruitmentQuota: number
   position: number
   techStacks: number
   status: number
@@ -78,11 +86,13 @@ export type ProjectCountAggregateOutputType = {
 
 export type ProjectAvgAggregateInputType = {
   id?: true
+  recruitmentQuota?: true
   leaderId?: true
 }
 
 export type ProjectSumAggregateInputType = {
   id?: true
+  recruitmentQuota?: true
   leaderId?: true
 }
 
@@ -91,6 +101,8 @@ export type ProjectMinAggregateInputType = {
   title?: true
   summary?: true
   content?: true
+  meetingType?: true
+  recruitmentQuota?: true
   status?: true
   startDate?: true
   endDate?: true
@@ -103,6 +115,8 @@ export type ProjectMaxAggregateInputType = {
   title?: true
   summary?: true
   content?: true
+  meetingType?: true
+  recruitmentQuota?: true
   status?: true
   startDate?: true
   endDate?: true
@@ -115,6 +129,8 @@ export type ProjectCountAggregateInputType = {
   title?: true
   summary?: true
   content?: true
+  meetingType?: true
+  recruitmentQuota?: true
   position?: true
   techStacks?: true
   status?: true
@@ -216,6 +232,8 @@ export type ProjectGroupByOutputType = {
   title: string
   summary: string
   content: string
+  meetingType: string | null
+  recruitmentQuota: number
   position: string[]
   techStacks: string[]
   status: boolean
@@ -253,6 +271,8 @@ export type ProjectWhereInput = {
   title?: Prisma.StringFilter<"Project"> | string
   summary?: Prisma.StringFilter<"Project"> | string
   content?: Prisma.StringFilter<"Project"> | string
+  meetingType?: Prisma.StringNullableFilter<"Project"> | string | null
+  recruitmentQuota?: Prisma.IntFilter<"Project"> | number
   position?: Prisma.StringNullableListFilter<"Project">
   techStacks?: Prisma.StringNullableListFilter<"Project">
   status?: Prisma.BoolFilter<"Project"> | boolean
@@ -272,6 +292,8 @@ export type ProjectOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  meetingType?: Prisma.SortOrderInput | Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
   position?: Prisma.SortOrder
   techStacks?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -294,6 +316,8 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Project"> | string
   summary?: Prisma.StringFilter<"Project"> | string
   content?: Prisma.StringFilter<"Project"> | string
+  meetingType?: Prisma.StringNullableFilter<"Project"> | string | null
+  recruitmentQuota?: Prisma.IntFilter<"Project"> | number
   position?: Prisma.StringNullableListFilter<"Project">
   techStacks?: Prisma.StringNullableListFilter<"Project">
   status?: Prisma.BoolFilter<"Project"> | boolean
@@ -313,6 +337,8 @@ export type ProjectOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  meetingType?: Prisma.SortOrderInput | Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
   position?: Prisma.SortOrder
   techStacks?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -335,6 +361,8 @@ export type ProjectScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Project"> | string
   summary?: Prisma.StringWithAggregatesFilter<"Project"> | string
   content?: Prisma.StringWithAggregatesFilter<"Project"> | string
+  meetingType?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
+  recruitmentQuota?: Prisma.IntWithAggregatesFilter<"Project"> | number
   position?: Prisma.StringNullableListFilter<"Project">
   techStacks?: Prisma.StringNullableListFilter<"Project">
   status?: Prisma.BoolWithAggregatesFilter<"Project"> | boolean
@@ -348,6 +376,8 @@ export type ProjectCreateInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -366,6 +396,8 @@ export type ProjectUncheckedCreateInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -383,6 +415,8 @@ export type ProjectUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -401,6 +435,8 @@ export type ProjectUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -419,6 +455,8 @@ export type ProjectCreateManyInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -432,6 +470,8 @@ export type ProjectUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -445,6 +485,8 @@ export type ProjectUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -469,6 +511,8 @@ export type ProjectCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  meetingType?: Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
   position?: Prisma.SortOrder
   techStacks?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -480,6 +524,7 @@ export type ProjectCountOrderByAggregateInput = {
 
 export type ProjectAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
   leaderId?: Prisma.SortOrder
 }
 
@@ -488,6 +533,8 @@ export type ProjectMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  meetingType?: Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
   status?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
@@ -500,6 +547,8 @@ export type ProjectMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   summary?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  meetingType?: Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
   status?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
@@ -509,6 +558,7 @@ export type ProjectMinOrderByAggregateInput = {
 
 export type ProjectSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  recruitmentQuota?: Prisma.SortOrder
   leaderId?: Prisma.SortOrder
 }
 
@@ -641,6 +691,8 @@ export type ProjectCreateWithoutLeaderInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -658,6 +710,8 @@ export type ProjectUncheckedCreateWithoutLeaderInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -704,6 +758,8 @@ export type ProjectScalarWhereInput = {
   title?: Prisma.StringFilter<"Project"> | string
   summary?: Prisma.StringFilter<"Project"> | string
   content?: Prisma.StringFilter<"Project"> | string
+  meetingType?: Prisma.StringNullableFilter<"Project"> | string | null
+  recruitmentQuota?: Prisma.IntFilter<"Project"> | number
   position?: Prisma.StringNullableListFilter<"Project">
   techStacks?: Prisma.StringNullableListFilter<"Project">
   status?: Prisma.BoolFilter<"Project"> | boolean
@@ -717,6 +773,8 @@ export type ProjectCreateWithoutProjectApplicationsInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -734,6 +792,8 @@ export type ProjectUncheckedCreateWithoutProjectApplicationsInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -766,6 +826,8 @@ export type ProjectUpdateWithoutProjectApplicationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -783,6 +845,8 @@ export type ProjectUncheckedUpdateWithoutProjectApplicationsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -799,6 +863,8 @@ export type ProjectCreateWithoutChatRoomInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -816,6 +882,8 @@ export type ProjectUncheckedCreateWithoutChatRoomInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -848,6 +916,8 @@ export type ProjectUpdateWithoutChatRoomInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -865,6 +935,8 @@ export type ProjectUncheckedUpdateWithoutChatRoomInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -881,6 +953,8 @@ export type ProjectCreateWithoutPostsInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -898,6 +972,8 @@ export type ProjectUncheckedCreateWithoutPostsInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -930,6 +1006,8 @@ export type ProjectUpdateWithoutPostsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -947,6 +1025,8 @@ export type ProjectUncheckedUpdateWithoutPostsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -963,6 +1043,8 @@ export type ProjectCreateWithoutTasksInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -980,6 +1062,8 @@ export type ProjectUncheckedCreateWithoutTasksInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -1012,6 +1096,8 @@ export type ProjectUpdateWithoutTasksInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1029,6 +1115,8 @@ export type ProjectUncheckedUpdateWithoutTasksInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1046,6 +1134,8 @@ export type ProjectCreateManyLeaderInput = {
   title: string
   summary: string
   content: string
+  meetingType?: string | null
+  recruitmentQuota?: number
   position?: Prisma.ProjectCreatepositionInput | string[]
   techStacks?: Prisma.ProjectCreatetechStacksInput | string[]
   status?: boolean
@@ -1058,6 +1148,8 @@ export type ProjectUpdateWithoutLeaderInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1075,6 +1167,8 @@ export type ProjectUncheckedUpdateWithoutLeaderInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1092,6 +1186,8 @@ export type ProjectUncheckedUpdateManyWithoutLeaderInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   summary?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  meetingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recruitmentQuota?: Prisma.IntFieldUpdateOperationsInput | number
   position?: Prisma.ProjectUpdatepositionInput | string[]
   techStacks?: Prisma.ProjectUpdatetechStacksInput | string[]
   status?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1154,6 +1250,8 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   title?: boolean
   summary?: boolean
   content?: boolean
+  meetingType?: boolean
+  recruitmentQuota?: boolean
   position?: boolean
   techStacks?: boolean
   status?: boolean
@@ -1174,6 +1272,8 @@ export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   title?: boolean
   summary?: boolean
   content?: boolean
+  meetingType?: boolean
+  recruitmentQuota?: boolean
   position?: boolean
   techStacks?: boolean
   status?: boolean
@@ -1189,6 +1289,8 @@ export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   title?: boolean
   summary?: boolean
   content?: boolean
+  meetingType?: boolean
+  recruitmentQuota?: boolean
   position?: boolean
   techStacks?: boolean
   status?: boolean
@@ -1204,6 +1306,8 @@ export type ProjectSelectScalar = {
   title?: boolean
   summary?: boolean
   content?: boolean
+  meetingType?: boolean
+  recruitmentQuota?: boolean
   position?: boolean
   techStacks?: boolean
   status?: boolean
@@ -1213,7 +1317,7 @@ export type ProjectSelectScalar = {
   leaderId?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "summary" | "content" | "position" | "techStacks" | "status" | "startDate" | "endDate" | "createdAt" | "leaderId", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "summary" | "content" | "meetingType" | "recruitmentQuota" | "position" | "techStacks" | "status" | "startDate" | "endDate" | "createdAt" | "leaderId", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   chatRoom?: boolean | Prisma.Project$chatRoomArgs<ExtArgs>
   posts?: boolean | Prisma.Project$postsArgs<ExtArgs>
@@ -1243,6 +1347,8 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     title: string
     summary: string
     content: string
+    meetingType: string | null
+    recruitmentQuota: number
     position: string[]
     techStacks: string[]
     status: boolean
@@ -1682,6 +1788,8 @@ export interface ProjectFieldRefs {
   readonly title: Prisma.FieldRef<"Project", 'String'>
   readonly summary: Prisma.FieldRef<"Project", 'String'>
   readonly content: Prisma.FieldRef<"Project", 'String'>
+  readonly meetingType: Prisma.FieldRef<"Project", 'String'>
+  readonly recruitmentQuota: Prisma.FieldRef<"Project", 'Int'>
   readonly position: Prisma.FieldRef<"Project", 'String[]'>
   readonly techStacks: Prisma.FieldRef<"Project", 'String[]'>
   readonly status: Prisma.FieldRef<"Project", 'Boolean'>

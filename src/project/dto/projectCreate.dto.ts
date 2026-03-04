@@ -10,6 +10,10 @@ export class ProjectCreateDto {
   @IsString()
   summary:string;
   @IsString()
+  meetingType:string;
+  @IsNumber()
+  recruitmentQuota:number;
+  @IsString()
   title:string;
   @IsArray()
   @IsString({each:true})
