@@ -28,7 +28,7 @@ async canActivate(context: ExecutionContext): Promise<boolean> {
   const projectIdRaw = (client.handshake.query?.projectId as string)?.replace(/"/g, '');
 
   if (!token || !projectIdRaw) {
-    console.log('❌ [WssGuard] 토큰 또는 프로젝트ID 누락');
+
     client.disconnect(); // 💡 무한 로딩 방지를 위해 강제 종료
     return false;
   }

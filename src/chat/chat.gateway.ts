@@ -62,11 +62,9 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       const roomName = `project-${projectId}`;
       client.join(roomName);
 
-      console.log(
-        `🚀 [연결&입장 성공] 유저: ${user.nickname} | 방: ${roomName}`,
-      );
+
     } catch (error) {
-      console.log(`❌ [연결 거부] ${error.message}`);
+
       client.disconnect();
     }
   }
@@ -112,7 +110,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       const roomName = `project-${projectId}`;
       this.server.to(roomName).emit('receiveMessage', newMessage);
 
-      console.log(`💬 [${roomName}] ${user.nickname}: ${content}`);
+
     } catch (error) {
       console.error('❌ Prisma 에러:', error.message);
     }
