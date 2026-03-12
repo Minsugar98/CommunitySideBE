@@ -18,7 +18,7 @@ async function bootstrap() {
         !origin ||
         origin.includes('localhost') ||
         origin.includes('127.0.0.1') ||
-	origin.includes('49.50.134.252')
+        origin.includes(process.env.NEXT_PUBLIC_SERVER_URL)
       ) {
         callback(null, true);
       } else {
