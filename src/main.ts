@@ -17,7 +17,8 @@ async function bootstrap() {
       if (
         !origin ||
         origin.includes('localhost') ||
-        origin.includes('127.0.0.1')
+        origin.includes('127.0.0.1') ||
+	origin.includes('49.50.134.252')
       ) {
         callback(null, true);
       } else {
