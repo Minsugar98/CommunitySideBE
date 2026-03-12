@@ -41,15 +41,12 @@ async canActivate(context: ExecutionContext): Promise<boolean> {
     const chatRoom = await this.prisma.chatRoom.findUnique({ where: { projectId } });
 
     if (!chatRoom) {
-      console.log(`⚠️ [WssGuard] DB에 채팅방 없음: ${projectId}`);
       client.disconnect();
       return false;
     }
 
-    console.log(`✅ [WssGuard] 인증 성공: ${user.nickname}`);
     return true;
   } catch (e) {
-    console.error('❌ [WssGuard] JWT 인증 실패:', e.message);
     client.disconnect();
     return false;
   }

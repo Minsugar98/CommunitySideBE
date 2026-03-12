@@ -33,11 +33,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       if (!rawCookie || !projectIdRaw) throw new Error('데이터 누락');
 
       const token = rawCookie
-      .split('; ')
-      .find(row => row.startsWith('access_token='))
-      ?.split('=')[1];
+        .split('; ')
+        .find((row) => row.startsWith('access_token='))
+        ?.split('=')[1];
 
-    if (!token) throw new Error('access_token이 쿠키에 없습니다.');
+      if (!token) throw new Error('access_token이 쿠키에 없습니다.');
       const projectId = parseInt(projectIdRaw.replace(/"/g, ''), 10);
 
       const payload = this.jwtService.verify(token);
@@ -61,17 +61,12 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       // 🔥 [핵심] 연결되자마자 바로 해당 프로젝트 방에 입장시킴!
       const roomName = `project-${projectId}`;
       client.join(roomName);
-
-
     } catch (error) {
-
       client.disconnect();
     }
   }
 
-  handleDisconnect(client: Socket) {
-    console.log(`❌ [연결 종료] ID: ${client.id}`);
-  }
+  handleDisconnect(client: Socket) {}
 
   @SubscribeMessage('sendMessage')
   async handleMessage(
@@ -93,7 +88,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     // 최종 검증 로그
     if (!content) {
-      console.log('❌ 여전히 content를 찾을 수 없음:', data);
       return;
     }
 
@@ -109,8 +103,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
       const roomName = `project-${projectId}`;
       this.server.to(roomName).emit('receiveMessage', newMessage);
-
-
     } catch (error) {
       console.error('❌ Prisma 에러:', error.message);
     }
